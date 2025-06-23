@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA - Alma no Silício</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis de Cor e Tipografia - PALETA ESCURA COM VARIAÇÕES DE CINZA */
+        :root {
+            --color-dark-primary: #121212; /* Fundo principal (quase preto) */
+            --color-dark-secondary: #1f1f1f; /* Fundo de seções e cards (cinza escuro 1) */
+            --color-dark-tertiary: #2a2a2a; /* Fundo de elementos como inputs (cinza escuro 2) */
+            --color-dark-quaternary: #3a3a3a; /* Bordas e separadores (cinza escuro 3) */
+
+            --color-text-light: #f0f0f0; /* Texto claro principal */
+            --color-text-muted: #b0b0b0; /* Cinza claro para texto secundário/descrições */
+            
+            --color-accent-purple: #8a2be2; /* Roxo principal, vibrante */
+            --color-accent-pink: #e040fb; /* Rosa do logo, como cor de destaque forte */
+            
+            --shadow-soft-dark: 0 5px 15px rgba(0, 0, 0, 0.4); /* Sombra suave para fundos escuros */
+            --shadow-strong-dark: 0 10px 30px rgba(0, 0, 0, 0.6); /* Sombra forte para fundos escuros */
+            --shadow-card-hover: 0 20px 50px rgba(0, 0, 0, 0.9); /* Sombra mais intensa no hover do card */
+
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+
+            --spacing-unit: 1rem; /* Base para espaçamento (16px) */
+            --border-radius-base: 15px; /* Bordas arredondadas e modernas */
+            
+            --transition-speed-fast: 0.3s;
+            --transition-speed-medium: 0.5s;
+            --transition-speed-slow: 0.8s;
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-dark-primary);
+            color: var(--color-text-light);
+            line-height: 1.8; /* Melhor legibilidade para textos longos */
+            scroll-behavior: smooth;
+            overflow-x: hidden; /* Evita scroll horizontal em animações */
+        }
+
+        /* Animação ao descer a página (Scroll-Reveal) */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px); /* Mais deslocamento vertical */
+            transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9); /* Mais encolhimento inicial */
+            transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        /* Container de Conteúdo */
+        .container {
+            max-width: 1400px; /* Container ainda mais largo para mais espaço */
+            margin: 0 auto;
+            padding: 0 calc(var(--spacing-unit) * 3); /* 48px de padding nas laterais */
+        }
+
+        /* Header & Navegação */
+        header {
+            background-color: var(--color-dark-secondary); /* Fundo sólido, sem semi-transparência */
+            padding: var(--spacing-unit) * 1 0;
+            box-shadow: var(--shadow-soft-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--color-dark-quaternary); /* Borda cinza escura 3 */
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            width: 100px;
+            margin-right: var(--spacing-unit);
+            filter: drop-shadow(0 0 15px rgba(224, 64, 251, 0.5)); /* Sombra colorida mais intensa no logo */
+            transition: filter var(--transition-speed-medium) ease;
+        }
+        .logo img:hover {
+            filter: drop-shadow(0 0 25px var(--color-accent-pink)) brightness(1.2);
+        }
+
+        .logo h1 {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--color-accent-purple), var(--color-accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform var(--transition-speed-medium) ease;
+        }
+        .logo h1:hover {
+            transform: translateX(8px);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: calc(var(--spacing-unit) * 3.5);
+        }
+
+        nav ul li a {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.4rem;
+            padding: var(--spacing-unit) * 1 var(--spacing-unit) * 2;
+            border-radius: var(--border-radius-base) * 0.7;
+            transition: all var(--transition-speed-fast) ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul li a:hover::before {
+            left: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-accent-pink);
+            background-color: rgba(var(--color-accent-purple), 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: var(--spacing-unit) * 0.8;
+            transition: transform var(--transition-speed-fast) ease;
+        }
+
+        .hamburger span {
+            height: 5px;
+            width: 40px;
+            background-color: var(--color-text-light);
+            margin-bottom: 9px;
+            border-radius: 5px;
+            transition: all var(--transition-speed-fast) ease;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 9px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(9px, -9px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(18,18,18,0.95), rgba(18,18,18,0.95)), url('https://via.placeholder.com/1920x1080/121212/FFFFFF?text=AURA+Dark+Background') no-repeat center center/cover;
+            background-attachment: fixed;
+            color: var(--color-text-light);
+            text-align: center;
+            padding: calc(var(--spacing-unit) * 18) calc(var(--spacing-unit) * 3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--color-dark-quaternary);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, var(--color-dark-primary) 0%, transparent 100%);
+        }
+
+        .hero h2 {
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            margin-bottom: var(--spacing-unit) * 3;
+            color: var(--color-accent-purple);
+            text-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            line-height: 1.1;
+            font-weight: 900;
+            letter-spacing: 3px;
+            animation: fadeInScale 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            background: linear-gradient(to right, var(--color-accent-purple), var(--color-accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        .hero h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 12px;
+            background: radial-gradient(ellipse at center, rgba(var(--color-accent-pink), 0.4) 0%, transparent 70%);
+            filter: blur(15px);
+        }
+
+
+        .hero p {
+            font-size: 2.3rem;
+            max-width: 1100px;
+            margin-bottom: calc(var(--spacing-unit) * 5);
+            color: var(--color-text-light);
+            font-weight: 300;
+            animation: fadeIn 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        .btn {
+            background-image: linear-gradient(to right, var(--color-accent-pink) 0%, var(--color-accent-purple) 100%);
+            color: white;
+            padding: var(--spacing-unit) * 1.5 var(--spacing-unit) * 5;
+            text-decoration: none;
+            border-radius: var(--border-radius-base);
+            font-weight: 700;
+            font-size: 1.6rem;
+            transition: all var(--transition-speed-fast) ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: none;
+            background-size: 200% auto;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 1s;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, var(--color-accent-pink), var(--color-accent-purple), var(--color-accent-pink));
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(10px);
+            border-radius: var(--border-radius-base);
+            opacity: 0;
+            transition: opacity var(--transition-speed-medium) ease;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+            animation: pulse-border 1.5s infinite;
+        }
+
+        .btn:hover {
+            transform: translateY(-10px) scale(1.06);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            background-position: right center;
+        }
+
+        /* Keyframes para animações de entrada */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); filter: blur(8px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse-border {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        /* Seções Gerais */
+        section {
+            padding: calc(var(--spacing-unit) * 10) 0;
+            border-bottom: 1px solid var(--color-dark-quaternary);
+            position: relative;
+            z-index: 1;
+            background-color: var(--color-dark-primary);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        section h2 {
+            font-family: var(--font-heading);
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 6);
+            color: var(--color-accent-purple);
+            position: relative;
+            padding-bottom: var(--spacing-unit) * 1.5;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--color-accent-purple), var(--color-accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 180px;
+            height: 8px;
+            background: linear-gradient(to right, var(--color-accent-pink), var(--color-accent-purple));
+            margin: var(--spacing-unit) * 1.2 auto 0;
+            border-radius: 4px;
+        }
+
+        /* Quem Somos Section */
+        #quem-somos .section-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: calc(var(--spacing-unit) * 5);
+            align-items: flex-start;
+        }
+
+        #quem-somos .text-content {
+            flex: 1;
+            min-width: 400px;
+            max-width: 700px;
+            background-color: var(--color-dark-secondary); /* Fundo cinza escuro 1 */
+            border-radius: var(--border-radius-base);
+            padding: calc(var(--spacing-unit) * 3.5);
+            box-shadow: var(--shadow-strong-dark);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            transition: all var(--transition-speed-medium) ease;
+        }
+        #quem-somos .text-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            border-color: var(--color-accent-pink);
+        }
+
+        #quem-somos .text-content h3 {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            color: var(--color-accent-pink);
+            margin-bottom: var(--spacing-unit) * 2;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 1.2px;
+        }
+
+        #quem-somos .text-content p {
+            margin-bottom: var(--spacing-unit) * 2.2;
+            font-size: 1.4rem;
+            color: var(--color-text-light); /* Texto claro */
+            font-weight: 300;
+        }
+
+        #quem-somos .culture-points {
+            list-style: none;
+            padding-left: 0;
+            margin-top: var(--spacing-unit) * 2.5;
+        }
+
+        #quem-somos .culture-points li {
+            margin-bottom: var(--spacing-unit) * 1.5;
+            position: relative;
+            padding-left: calc(var(--spacing-unit) * 3);
+            font-size: 1.35rem;
+            color: var(--color-text-light); /* Texto claro */
+            font-weight: 400;
+        }
+
+        #quem-somos .culture-points li::before {
+            content: '✨';
+            font-size: 2.5rem;
+            position: absolute;
+            left: 0;
+            top: -10px;
+            line-height: 1;
+            filter: drop-shadow(0 0 8px var(--color-accent-pink));
+        }
+
+        /* Participantes Section */
+        #participantes .team-scroll-wrapper {
+            position: relative;
+            /* Aumentar padding vertical para dar espaço ao hover/sombra */
+            padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 5); /* Ajustado o vertical */
+            /* Margem negativa para contra-balançar o padding e manter o wrapper na largura total do container */
+            margin: calc(var(--spacing-unit) * -4) calc(var(--spacing-unit) * -5); /* Ajustado o vertical */
+            height: 500px; /* Aumenta a altura do wrapper para dar espaço ao hover */
+            display: flex; /* Para centralizar os itens verticalmente */
+            align-items: center; /* Centraliza verticalmente */
+        }
+
+        #participantes .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(31, 31, 31, 0.7); /* Cinza escuro semi-transparente */
+            border: 1px solid var(--color-dark-quaternary);
+            color: var(--color-text-light);
+            font-size: 2.5rem;
+            line-height: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: all var(--transition-speed-fast) ease;
+            box-shadow: var(--shadow-soft-dark);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none; /* Evita seleção de texto */
+        }
+        #participantes .scroll-button:hover {
+            background-color: var(--color-accent-purple);
+            color: white;
+            box-shadow: 0 0 15px rgba(var(--color-accent-purple), 0.5), var(--shadow-soft-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
+        #participantes .scroll-button:active {
+            transform: translateY(-50%) scale(0.9);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        #participantes .scroll-button.left {
+            left: var(--spacing-unit); /* Alinha com o padding interno do wrapper */
+        }
+        #participantes .scroll-button.right {
+            right: var(--spacing-unit); /* Alinha com o padding interno do wrapper */
+        }
+        #participantes .scroll-button.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background-color: var(--color-dark-tertiary);
+            box-shadow: none;
+            transform: translateY(-50%) scale(1);
+        }
+
+        #participantes .team-grid {
+            display: grid;
+            grid-auto-flow: column; /* Faz os itens fluírem horizontalmente */
+            grid-auto-columns: minmax(300px, 1fr); /* Cada coluna terá no mínimo 300px e expandirá */
+            gap: calc(var(--spacing-unit) * 4); /* Espaçamento entre os itens */
+            justify-content: start; /* Alinha o início do grid à esquerda */
+            overflow-x: scroll; /* Adiciona barra de scroll horizontal */
+            scroll-snap-type: x mandatory; /* Para rolagem suave e "snap" nos itens */
+            padding-bottom: var(--spacing-unit) * 0.5; /* Espaço para não cortar a sombra dos cards */
+            -webkit-overflow-scrolling: touch; /* Melhora o scroll em iOS */
+            scroll-behavior: smooth; /* *** PROPRIEDADE PARA SCROLL SUAVE *** */
+
+            /* Ocultar barra de rolagem visualmente */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Ocultar barra de rolagem no WebKit (Chrome, Safari, etc.) */
+        #participantes .team-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        #participantes .team-member {
+            background-color: var(--color-dark-secondary); /* Fundo cinza escuro 1 */
+            border-radius: var(--border-radius-base);
+            padding: calc(var(--spacing-unit) * 3);
+            text-align: center;
+            box-shadow: var(--shadow-strong-dark);
+            transition: all var(--transition-speed-medium) ease;
+            position: relative;
+            scroll-snap-align: start; /* Faz com que os itens "grudem" ao rolar */
+            border: 1px solid var(--color-dark-quaternary); /* Borda sólida */
+            min-width: 300px; /* Garante que os cards tenham largura mínima para scroll */
+        }
+
+        #participantes .team-member:hover {
+            transform: translateY(-10px); /* Levantamento mais sutil */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8); /* Sombra mais suave no hover */
+            background-color: #252525; /* Escurecimento no hover */
+            border-color: var(--color-accent-purple); /* Borda roxa no hover */
+        }
+
+        #participantes .team-member img {
+            width: 190px; /* Tamanho ajustado para visibilidade */
+            height: 190px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: var(--spacing-unit) * 2;
+            border: 6px solid var(--color-accent-purple); /* Borda sólida roxa */
+            box-shadow: 0 0 0 4px var(--color-dark-secondary), /* Borda interna do card */
+                                0 0 0 8px var(--color-accent-pink); /* Borda rosa mais externa */
+            transition: all var(--transition-speed-medium) ease;
+            filter: grayscale(20%); /* Menos grayscale para ter mais cor natural */
+            z-index: 1;
+            position: relative;
+        }
+        #participantes .team-member:hover img {
+            filter: grayscale(0%);
+            border-color: var(--color-accent-pink); /* Inverte a cor da borda no hover */
+            box-shadow: 0 0 0 4px var(--color-dark-secondary), 0 0 0 8px var(--color-accent-purple); /* Inverte sombra no hover */
+            transform: scale(1.02);
+        }
+
+        /* Cores de borda específicas (mantidas para consistência, mas o border-color é sobrescrito no hover) */
+        #participantes .team-member.pink-border img { border-color: var(--color-accent-pink); }
+        #participantes .team-member.purple-border img { border-color: var(--color-accent-purple); }
+        #participantes .team-member.yellow-border img { border-color: #FFD700; }
+        #participantes .team-member.green-border img { border-color: #2ECC71; }
+        #participantes .team-member.red-border img { border-color: #E74C3C; }
+
+
+        #participantes .team-member h3 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-unit);
+            color: var(--color-accent-pink);
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        #participantes .team-member p {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        /* Projetos Section */
+        #projetos .project-card {
+            background-color: var(--color-dark-secondary); /* Fundo cinza escuro 1 */
+            border-radius: var(--border-radius-base);
+            padding: calc(var(--spacing-unit) * 4);
+            box-shadow: var(--shadow-strong-dark);
+            text-align: center;
+            transition: all var(--transition-speed-medium) ease;
+            border: 2px solid rgba(224, 64, 251, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        #projetos .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8);
+            background-color: #252525;
+            border-color: var(--color-accent-purple);
+        }
+        #projetos .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(var(--color-accent-pink), 0.1), transparent 50%, rgba(var(--color-accent-purple), 0.1));
+            opacity: 0;
+            transition: opacity var(--transition-speed-medium) ease;
+        }
+        #projetos .project-card:hover::after {
+            opacity: 1;
+        }
+
+
+        #projetos .project-card h3 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--color-accent-purple);
+            margin-bottom: var(--spacing-unit) * 2.2;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        #projetos .project-card p {
+            margin-bottom: var(--spacing-unit) * 2.5;
+            font-size: 1.45rem;
+            color: var(--color-text-light);
+            font-weight: 300;
+        }
+
+        #projetos .project-card .delivery-date {
+            font-weight: 700;
+            color: var(--color-accent-pink);
+            font-size: 1.6rem;
+            background-color: rgba(224, 64, 251, 0.15);
+            padding: var(--spacing-unit) * 0.9 var(--spacing-unit) * 1.8;
+            border-radius: var(--border-radius-base) * 0.8;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            letter-spacing: 0.8px;
+        }
+
+        /* Contato Section */
+        #contato .contact-info {
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 5);
+            background-color: var(--color-dark-secondary); /* Fundo cinza escuro 1 */
+            padding: calc(var(--spacing-unit) * 4);
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-strong-dark);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+        }
+
+        #contato .contact-info h3 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--color-accent-purple);
+            margin-top: var(--spacing-unit) * 2;
+            margin-bottom: var(--spacing-unit) * 2.5;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #contato .contact-info p {
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-unit) * 1.8;
+            color: var(--color-text-light);
+            font-weight: 300;
+        }
+
+        #contato .contact-info ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: var(--spacing-unit) * 3.5;
+            display: inline-block;
+            text-align: left;
+            background-color: rgba(0,0,0,0.3);
+            padding: var(--spacing-unit) * 1.8 var(--spacing-unit) * 3;
+            border-radius: var(--border-radius-base) * 0.8;
+            border: 1px dashed var(--color-dark-quaternary);
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
+        }
+
+        #contato .contact-info li {
+            margin-bottom: var(--spacing-unit) * 1.2;
+            font-size: 1.35rem;
+            color: var(--color-text-light);
+            position: relative;
+            padding-left: calc(var(--spacing-unit) * 2.8);
+            font-weight: 400;
+        }
+        #contato .contact-info li::before {
+            content: '✨';
+            font-size: 2.2rem;
+            position: absolute;
+            left: 0;
+            top: -7px;
+            line-height: 1;
+            filter: drop-shadow(0 0 6px var(--color-accent-pink));
+        }
+
+
+        #contato .contact-info a {
+            color: var(--color-accent-pink);
+            text-decoration: none;
+            transition: all var(--transition-speed-fast) ease;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin: var(--spacing-unit) * 0.4;
+            padding: var(--spacing-unit) * 0.6 var(--spacing-unit) * 1.2;
+            border-radius: var(--border-radius-base) * 0.6;
+            background-color: rgba(255, 0, 255, 0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        #contato .contact-info a:hover {
+            color: var(--color-accent-purple);
+            transform: translateY(-4px) scale(1.03);
+            background-color: rgba(155, 89, 182, 0.3);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+        }
+
+        .contact-form {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--color-dark-secondary); /* Fundo cinza escuro 1 */
+            padding: calc(var(--spacing-unit) * 4.5);
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-strong-dark);
+            border: 2px solid rgba(224, 64, 251, 0.4);
+        }
+
+        .contact-form h3 {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            color: var(--color-accent-purple);
+            text-align: center;
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: var(--spacing-unit) * 1.2;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--color-text-light);
+            letter-spacing: 1px;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea,
+        .contact-form select { /* Estilizando todos os inputs de texto, email, textarea e select */
+            width: 100%;
+            padding: var(--spacing-unit) * 1.5;
+            margin-bottom: var(--spacing-unit) * 2.8;
+            border: 1px solid var(--color-dark-quaternary); /* Borda cinza escuro 3 */
+            border-radius: var(--border-radius-base) * 0.7;
+            background-color: var(--color-dark-tertiary); /* Fundo cinza escuro 2 para inputs */
+            color: var(--color-text-light);
+            font-size: 1.25rem;
+            transition: all var(--transition-speed-fast) ease;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.6);
+        }
+        
+        .contact-form select {
+            -webkit-appearance: none; /* Remove a seta padrão do Chrome/Safari */
+            -moz-appearance: none; /* Remove a seta padrão do Firefox */
+            appearance: none; /* Remove a seta padrão */
+            background-image: linear-gradient(45deg, transparent 50%, var(--color-text-muted) 50%),
+                              linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
+            background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+            background-size: 8px 8px, 8px 8px; /* Ajuste o tamanho da seta customizada */
+            background-repeat: no-repeat;
+            padding-right: var(--spacing-unit) * 3; /* Adiciona padding para a seta customizada */
+            cursor: pointer;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus { /* Adicionado foco para select */
+            border-color: var(--color-accent-purple);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.3), inset 0 4px 10px rgba(0,0,0,0.8); /* Brilho suave */
+            background-color: #202020;
+        }
+
+        /* Estilização do placeholder */
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--color-text-muted);
+            opacity: 0.7;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 250px;
+        }
+
+        .contact-form .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-unit) * 2.8;
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+        }
+
+        .contact-form .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: var(--spacing-unit);
+            cursor: pointer;
+            border-radius: 4px;
+            background-color: var(--color-dark-tertiary);
+            border: 1px solid var(--color-dark-quaternary);
+            transition: all var(--transition-speed-fast) ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            position: relative;
+            flex-shrink: 0; /* Evita que o checkbox encolha em telas pequenas */
+        }
+
+        .contact-form .checkbox-group input[type="checkbox"]:checked {
+            background-color: var(--color-accent-purple);
+            border-color: var(--color-accent-pink);
+        }
+
+        .contact-form .checkbox-group input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .contact-form .checkbox-group input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.3), inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+
+        .contact-form .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        .contact-form .checkbox-group a {
+            color: var(--color-accent-pink);
+            text-decoration: none;
+            transition: color var(--transition-speed-fast) ease;
+            margin-left: 5px;
+        }
+        .contact-form .checkbox-group a:hover {
+            color: var(--color-accent-purple);
+            text-decoration: underline;
+        }
+
+
+        /* Estilo para o botão de envio de mensagem no formulário de contato */
+        .contact-form button {
+            display: block;
+            width: 100%;
+            padding: var(--spacing-unit) * 1.8;
+            background-image: linear-gradient(to right, var(--color-accent-pink) 0%, var(--color-accent-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-base);
+            font-size: 1.6rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-speed-medium) ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(224, 64, 251, 0.5); /* Sombra mais forte e brilho */
+            background-size: 200% auto;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative; /* Necessário para o pseudo-elemento */
+            overflow: hidden; /* Para esconder o overflow do pseudo-elemento */
+            z-index: 1; /* Garante que o conteúdo fique acima do brilho */
+        }
+
+        .contact-form button::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--color-accent-pink), var(--color-accent-purple), var(--color-accent-pink));
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(15px); /* Aumenta o blur para um brilho mais suave e difuso */
+            border-radius: var(--border-radius-base);
+            opacity: 0;
+            transition: opacity var(--transition-speed-medium) ease, background-position var(--transition-speed-slow) ease;
+        }
+
+        .contact-form button:hover::before {
+            opacity: 1;
+            animation: pulse-border-contact 2s infinite; /* Animação de pulso para a borda/brilho */
+        }
+
+        .contact-form button:hover {
+            background-position: right center; /* Move o gradiente no hover */
+            transform: translateY(-10px) scale(1.03); /* Efeito de elevação e leve aumento */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(224, 64, 251, 0.8); /* Sombra mais intensa e brilho no hover */
+            filter: brightness(1.2); /* Deixa o botão mais brilhante no hover */
+        }
+
+        /* Keyframes para a animação do brilho/borda do botão de contato */
+        @keyframes pulse-border-contact {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: var(--color-dark-secondary); /* Cinza escuro 1 para o footer */
+            color: var(--color-text-light); /* Texto claro no footer */
+            text-align: center;
+            padding: calc(var(--spacing-unit) * 5) 0;
+            margin-top: calc(var(--spacing-unit) * 8);
+            box-shadow: 0 -6px 20px var(--shadow-strong-dark);
+            font-size: 1.2rem;
+            position: relative;
+            border-top: 1px solid var(--color-dark-quaternary);
+        }
+
+        footer p {
+            margin-bottom: var(--spacing-unit) * 1.2;
+            font-weight: 300;
+        }
+
+        footer p:last-child {
+            margin-bottom: 0;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+        }
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .container { padding: 0 var(--spacing-unit) * 2; }
+            .hero h2 { font-size: 5rem; }
+            .hero p { font-size: 2rem; }
+            section h2 { font-size: 4.2rem; }
+            #quem-somos .text-content { min-width: unset; max-width: 100%; } /* Ajuste para não ter largura mínima rígida */
+
+            #participantes .team-scroll-wrapper {
+                padding: calc(var(--spacing-unit) * 2.5) var(--spacing-unit);
+                margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -1);
+                height: auto;
+            }
+            #participantes .scroll-button.left { left: 0; }
+            #participantes .scroll-button.right { right: 0; }
+        }
+
+        @media (max-width: 992px) {
+            .container { padding: 0 var(--spacing-unit) * 1.5; }
+
+            .logo h1 { font-size: 2.8rem; letter-spacing: 4px; }
+            .logo img { height: 65px; }
+
+            nav ul li { margin-left: calc(var(--spacing-unit) * 2.5); }
+            nav ul li a { font-size: 1.3rem; padding: var(--spacing-unit) * 0.9 var(--spacing-unit) * 1.5; }
+
+            .hero { padding: calc(var(--spacing-unit) * 12) var(--spacing-unit) * 1.5; min-height: 80vh; }
+            .hero h2 { font-size: 4rem; }
+            .hero p { font-size: 1.7rem; }
+            .btn { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 3; font-size: 1.4rem; }
+
+            section { padding: calc(var(--spacing-unit) * 7) 0; }
+            section h2 { font-size: 3.5rem; margin-bottom: calc(var(--spacing-unit) * 4.5); }
+            section h2::after { width: 150px; height: 7px; }
+
+            #quem-somos .text-content { padding: calc(var(--spacing-unit) * 3); }
+            #quem-somos .text-content h3 { font-size: 2.4rem; }
+            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1.25rem; }
+
+            #participantes .team-grid { grid-auto-columns: minmax(280px, 1fr); gap: calc(var(--spacing-unit) * 3.5); }
+            #participantes .team-member img { width: 180px; height: 180px; }
+            #participantes .team-member h3 { font-size: 1.7rem; }
+            #participantes .team-member p { font-size: 1.1rem; }
+
+            #projetos .project-card { padding: calc(var(--spacing-unit) * 3.5); }
+            #projetos .project-card h3 { font-size: 2.8rem; }
+            #projetos .project-card p { font-size: 1.3rem; }
+            #projetos .project-card .delivery-date { font-size: 1.4rem; }
+
+            #contato .contact-info { padding: calc(var(--spacing-unit) * 3.5); margin-bottom: calc(var(--spacing-unit) * 4.5); }
+            #contato .contact-info p, #contato .contact-info li, #contato .contact-info a { font-size: 1.2rem; }
+            #contato .contact-info h3 { font-size: 2.2rem; }
+            .contact-form { padding: calc(var(--spacing-unit) * 4); }
+            .contact-form h3 { font-size: 2.8rem; margin-bottom: calc(var(--spacing-unit) * 3.5); }
+            .contact-form label, .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form button, .contact-form select { font-size: 1.2rem; }
+            .contact-form textarea { min-height: 200px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 var(--spacing-unit); }
+
+            header .container {
+                flex-wrap: wrap;
+                justify-content: space-between;
+                padding-right: var(--spacing-unit);
+            }
+
+            .logo { margin-bottom: 0; width: auto; }
+            .logo h1 { font-size: 2.2rem; letter-spacing: 2px; }
+            .logo img { height: 55px; }
+
+            nav {
+                width: 100%;
+                order: 2;
+                margin-top: var(--spacing-unit);
+                display: none;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: var(--color-dark-secondary);
+                border-radius: var(--border-radius-base);
+                padding: var(--spacing-unit) * 1.5 0;
+                box-shadow: var(--shadow-soft-dark);
+            }
+
+            nav ul.active { display: flex; }
+
+            nav ul li { margin: var(--spacing-unit) * 0.8 0; }
+            nav ul li a { padding: var(--spacing-unit) * 0.9; font-size: 1.25rem; color: var(--color-text-light); }
+            nav ul li a::after { display: none; }
+
+
+            .hamburger {
+                display: flex;
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-left: auto;
+            }
+            .hamburger span { background-color: var(--color-text-light); }
+
+            .hero {
+                padding: calc(var(--spacing-unit) * 10) var(--spacing-unit);
+                min-height: 70vh;
+            }
+
+            .hero h2 { font-size: 3.5rem; margin-bottom: var(--spacing-unit) * 2; }
+            .hero p { font-size: 1.5rem; margin-bottom: var(--spacing-unit) * 3; }
+            .btn { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 3; font-size: 1.35rem; }
+
+            section { padding: calc(var(--spacing-unit) * 6) 0; }
+            section h2 { font-size: 3.2rem; margin-bottom: calc(var(--spacing-unit) * 3.5); }
+            section h2::after { width: 120px; height: 6px; }
+
+            #quem-somos .section-content { flex-direction: column; gap: var(--spacing-unit) * 3; }
+            #quem-somos .text-content { padding: calc(var(--spacing-unit) * 2.5); background-color: var(--color-dark-secondary); }
+            #quem-somos .text-content h3 { font-size: 2.2rem; }
+            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1.15rem; color: var(--color-text-light); }
+            #quem-somos .culture-points li::before { font-size: 1.8rem; top: -3px; }
+
+            #participantes .team-scroll-wrapper { /* Ajusta para mobile, mantém as setas mais próximas */
+                padding: calc(var(--spacing-unit) * 2.5) var(--spacing-unit); /* Aumenta padding vertical para o hover */
+                margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -1); /* Ajusta margem para compensar padding */
+            }
+            #participantes .scroll-button.left { left: var(--spacing-unit) * 0.5; } /* Ajusta a distância das setas no mobile */
+            #participantes .scroll-button.right { right: var(--spacing-unit) * 0.5; } /* Ajusta a distância das setas no mobile */
+            
+            #participantes .team-grid { grid-auto-columns: minmax(250px, 1fr); gap: calc(var(--spacing-unit) * 2.5); }
+            #participantes .team-member { padding: calc(var(--spacing-unit) * 2); background-color: var(--color-dark-secondary); }
+            #participantes .team-member img { width: 160px; height: 160px; border-width: 5px; box-shadow: 0 0 0 5px rgba(255,255,255,0.05), 0 0 0 12px var(--color-accent-pink); }
+            #participantes .team-member h3 { font-size: 1.6rem; }
+            #participantes .team-member p { font-size: 1rem; }
+
+            #projetos .project-card { padding: calc(var(--spacing-unit) * 2.5); background-color: var(--color-dark-secondary); }
+            #projetos .project-card h3 { font-size: 2.5rem; }
+            #projetos .project-card p { font-size: 1.2rem; color: var(--color-text-light); }
+            #projetos .project-card .delivery-date { font-size: 1.3rem; padding: var(--spacing-unit) * 0.7 var(--spacing-unit) * 1.5; }
+
+            #contato .contact-info { padding: calc(var(--spacing-unit) * 2.5); margin-bottom: calc(var(--spacing-unit) * 3.5); background-color: var(--color-dark-secondary); }
+            #contato .contact-info p, #contato .contact-info li, #contato .contact-info a { font-size: 1.05rem; color: var(--color-text-light); }
+            #contato .contact-info h3 { font-size: 2rem; }
+            #contato .contact-info ul { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 2; background-color: rgba(0,0,0,0.3); border: 1px dashed var(--color-dark-quaternary); }
+            #contato .contact-info li::before { font-size: 1.6rem; }
+            #contato .contact-info a { padding: var(--spacing-unit) * 0.5 var(--spacing-unit) * 1; background-color: rgba(255, 0, 255, 0.15); }
+
+            .contact-form { padding: calc(var(--spacing-unit) * 3); background-color: var(--color-dark-secondary); }
+            .contact-form h3 { font-size: 2.5rem; margin-bottom: calc(var(--spacing-unit) * 2.5); }
+            .contact-form label, .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form button, .contact-form select { font-size: 1.1rem; color: var(--color-text-light); }
+            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { background-color: var(--color-dark-tertiary); border: 1px solid var(--color-dark-quaternary); }
+            .contact-form textarea { min-height: 180px; }
+            .contact-form button { padding: var(--spacing-unit) * 1.2; font-size: 1.25rem; }
+            .contact-form .checkbox-group { font-size: 1rem; }
+            .contact-form .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; margin-right: var(--spacing-unit) * 0.8;}
+            .contact-form .checkbox-group input[type="checkbox"]:checked::after { font-size: 14px;}
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 { font-size: 1.9rem; letter-spacing: 1px; }
+            .logo img { height: 45px; }
+
+            .hero h2 { font-size: 2.8rem; margin-bottom: var(--spacing-unit) * 1.5; }
+            .hero p { font-size: 1.25rem; margin-bottom: var(--spacing-unit) * 2.5; }
+            .btn { padding: var(--spacing-unit) * 1 var(--spacing-unit) * 2; font-size: 1.15rem; }
+
+            section { padding: calc(var(--spacing-unit) * 4) 0; }
+            section h2 { font-size: 2.5rem; margin-bottom: var(--spacing-unit) * 2.5; }
+            section h2::after { width: 90px; height: 5px; }
+
+            #quem-somos .text-content { padding: var(--spacing-unit) * 1.8; }
+            #quem-somos .text-content h3 { font-size: 1.8rem; }
+            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1rem; }
+            #quem-somos .culture-points li::before { font-size: 1.5rem; top: 0px; }
+
+            #participantes .team-grid { grid-auto-columns: 1fr; } /* Em telas menores, pode ser uma coluna por vez */
+            #participantes .team-member { max-width: 280px; margin: 0 auto; padding: calc(var(--spacing-unit) * 1.5); }
+            #participantes .team-member img { width: 130px; height: 130px; border-width: 3px; box-shadow: 0 0 0 3px rgba(255,255,255,0.05), 0 0 0 10px var(--color-accent-pink); }
+            #participantes .team-member h3 { font-size: 1.4rem; }
+            #participantes .team-member p { font-size: 0.9rem; }
+
+            #projetos .project-card { padding: var(--spacing-unit) * 2; }
+            #projetos .project-card h3 { font-size: 2.2rem; }
+            #projetos .project-card p { font-size: 1.15rem; }
+            #projetos .project-card .delivery-date { font-size: 1.15rem; padding: var(--spacing-unit) * 0.6 var(--spacing-unit) * 1.2; }
+
+            #contato .contact-info { padding: var(--spacing-unit) * 2; margin-bottom: var(--spacing-unit) * 3; }
+            #contato .contact-info p, #contato .contact-info li, #contato .contact-info a { font-size: 1rem; }
+            #contato .contact-info h3 { font-size: 1.8rem; }
+            #contato .contact-info ul { padding: var(--spacing-unit) * 1 var(--spacing-unit) * 1.5; }
+            #contato .contact-info li::before { font-size: 1.4rem; }
+            #contato .contact-info a { padding: var(--spacing-unit) * 0.4 var(--spacing-unit) * 0.8; }
+
+            .contact-form { padding: var(--spacing-unit) * 2; }
+            .contact-form h3 { font-size: 2.2rem; margin-bottom: var(--spacing-unit) * 2; }
+            .contact-form label, .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form button, .contact-form select { font-size: 1rem; }
+            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { padding: var(--spacing-unit); margin-bottom: var(--spacing-unit) * 2; }
+            .contact-form textarea { min-height: 140px; }
+            .contact-form button { padding: var(--spacing-unit) * 1; font-size: 1.15rem; }
+            .contact-form .checkbox-group { font-size: 0.9rem; }
+            .contact-form .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; margin-right: var(--spacing-unit) * 0.7;}
+            .contact-form .checkbox-group input[type="checkbox"]:checked::after { font-size: 12px;}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="./img/logo3.png" alt="Aura Logo">
+                <h1>AURA</h1>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#quem-somos">Quem Somos</a></li>
+                    <li><a href="#participantes">Participantes</a></li>
+                    <li><a href="#projetos">Projetos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Alma no Silício</h2>
+            <p>A nossa equação é simples: Cérebro (Tecnologia) + Coração (Design) = Alma. Estamos transformando o futuro com sistemas que emocionam e impressionam.</p>
+            <a href="#projetos" class="btn">Conheça Nossos Projetos</a>
+        </section>
+
+        <section id="quem-somos" class="reveal reveal-up">
+            <div class="container">
+                <h2>Quem Somos - Cultura: O Código da Aura</h2>
+                <div class="section-content">
+                    <div class="text-content">
+                        <p>Na Aura, vivemos na interseção da tecnologia e da arte, dedicados a criar sistemas com alma que emocionam. Somos a Minoria Radical, odiamos a mediocridade e comprimimos o tempo para entregar excelência. Nossa cultura é nosso código. </p>
+                        <h3>Células - Lógica + Arte</h3>
+                        <p>Esta é a Aura: </p>
+                        <ul class="culture-points">
+                            <li>1 Célula de Direção. </li>
+                            <li>4 Células de Criação. </li>
+                            <li>10 pessoas. Focadas. Integradas. </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="participantes" class="reveal reveal-up">
+            <div class="container">
+                <h2>Nossos Participantes</h2>
+                <div class="team-scroll-wrapper">
+                    <button class="scroll-button left" id="scroll-left-btn">&lt;</button>
+                    <div class="team-grid" id="team-grid-scroll">
+                        <div class="team-member pink-border reveal reveal-scale">
+                            <img src="https://via.placeholder.com/190/e040fb/F0F0F0?text=Participante+1" alt="Participante 1">
+                            <h3>Participante 1</h3>
+                            <p>Artista / Célula de Criação</p>
+                        </div>
+                        <div class="team-member pink-border reveal reveal-scale" style="transition-delay: 0.1s;">
+                            <img src="https://via.placeholder.com/190/e040fb/F0F0F0?text=Participante+2" alt="Participante 2">
+                            <h3>Participante 2</h3>
+                            <p>Artista / Célula de Criação</p>
+                        </div>
+                        <div class="team-member purple-border reveal reveal-scale" style="transition-delay: 0.2s;">
+                            <img src="https://via.placeholder.com/190/8a2be2/F0F0F0?text=Participante+3" alt="Participante 3">
+                            <h3>Participante 3</h3>
+                            <p>Desenvolvedor / Célula de Criação</p>
+                        </div>
+                        <div class="team-member purple-border reveal reveal-scale" style="transition-delay: 0.3s;">
+                            <img src="https://via.placeholder.com/190/8a2be2/F0F0F0?text=Participante+4" alt="Participante 4">
+                            <h3>Participante 4</h3>
+                            <p>Desenvolvedor / Célula de Criação</p>
+                        </div>
+                        <div class="team-member yellow-border reveal reveal-scale" style="transition-delay: 0.4s;">
+                            <img src="https://via.placeholder.com/190/FFD700/F0F0F0?text=Participante+5" alt="Participante 5">
+                            <h3>Participante 5</h3>
+                            <p>UX/UI Designer / Célula de Criação</p>
+                        </div>
+                        <div class="team-member yellow-border reveal reveal-scale" style="transition-delay: 0.5s;">
+                            <img src="https://via.placeholder.com/190/FFD700/F0F0F0?text=Participante+6" alt="Participante 6">
+                            <h3>Participante 6</h3>
+                            <p>UX/UI Designer / Célula de Criação</p>
+                        </div>
+                        <div class="team-member green-border reveal reveal-scale" style="transition-delay: 0.6s;">
+                            <img src="https://via.placeholder.com/190/2ECC71/F0F0F0?text=Participante+7" alt="Participante 7">
+                            <h3>Participante 7</h3>
+                            <p>Marketing Digital / Célula de Criação</p>
+                        </div>
+                        <div class="team-member green-border reveal reveal-scale" style="transition-delay: 0.7s;">
+                            <img src="https://via.placeholder.com/190/2ECC71/F0F0F0?text=Participante+8" alt="Participante 8">
+                            <h3>Participante 8</h3>
+                            <p>Marketing Digital / Célula de Criação</p>
+                        </div>
+                           <div class="team-member red-border reveal reveal-scale" style="transition-delay: 0.8s;">
+                            <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+9" alt="Participante 9">
+                            <h3>Participante 9</h3>
+                            <p>Líder de Direção / Célula de Direção</p>
+                        </div>
+                           <div class="team-member red-border reveal reveal-scale" style="transition-delay: 0.9s;">
+                            <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+10" alt="Participante 10">
+                            <h3>Participante 10</h3>
+                            <p>Líder de Direção / Célula de Direção</p>
+                        </div>
+                           <div class="team-member red-border reveal reveal-scale" style="transition-delay: 1.0s;">
+                            <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+11" alt="Participante 11">
+                            <h3>Participante 11</h3>
+                            <p>Líder de Direção / Célula de Direção</p>
+                        </div>
+                    </div>
+                    <button class="scroll-button right" id="scroll-right-btn">&gt;</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="projetos" class="reveal reveal-up">
+            <div class="container">
+                <h2>Nossos Projetos</h2>
+                <div class="section-content">
+                    <div class="project-card reveal reveal-scale">
+                        <h3>Primeiro Projeto: O site da Aura</h3>
+                        <p>O site da Aura não é um "projeto". É a nossa declaração de guerra. É a primeira página do nosso grupo e deve demonstrar nossa cultura e de fato impressionar todos. </p>
+                        <p class="delivery-date">Entrega: 28/06 - (Primeira Reunião) </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="reveal reveal-up">
+            <div class="container">
+                <h2>Contato</h2>
+                <div class="contact-info reveal reveal-scale">
+                    <h3>Comunicação: </h3>
+                    <p>Para nos contatar, envie uma mensagem ou encontre-nos nas redes sociais:</p>
+                    <p>Email: <a href="mailto:contato@aura.com">contato@aura.com</a></p>
+                    <p>Telefone: <a href="tel:+5511999999999">(11) 99999-9999</a></p>
+                    <p>Instagram: <a href="https://instagram.com/aura_oficial" target="_blank">@aura_oficial</a></p>
+                </div>
+                <form class="contact-form reveal reveal-scale" style="transition-delay: 0.2s;">
+                    <h3>Envie-nos uma Mensagem</h3>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com">
+
+                    <label for="subject">Assunto:</label>
+                    <input type="text" id="subject" name="subject" required placeholder="Ex: Proposta de Parceria, Dúvida Geral, Suporte">
+
+                    <label for="service-type">Tipo de Serviço Desejado:</label>
+                    <select id="service-type" name="service-type" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="desenvolvimento_software">Desenvolvimento de Software</option>
+                        <option value="design_ux_ui">Design de UX/UI</option>
+                        <option value="marketing_digital">Marketing Digital</option>
+                        <option value="consultoria">Consultoria</option>
+                        <option value="outros">Outros</option>
+                    </select>
+
+                    <label for="budget">Orçamento Estimado:</label>
+                    <select id="budget" name="budget" required>
+                        <option value="">Selecione uma faixa</option>
+                        <option value="<5k">Abaixo de R$ 5.000</option>
+                        <option value="5k-10k">R$ 5.000 - R$ 10.000</option>
+                        <option value="10k-25k">R$ 10.000 - R$ 25.000</option>
+                        <option value="25k+">Acima de R$ 25.000</option>
+                    </select>
+
+                    <label for="how-heard">Como nos Conheceu?</label>
+                    <select id="how-heard" name="how-heard">
+                        <option value="">Selecione uma opção</option>
+                        <option value="redes_sociais">Redes Sociais</option>
+                        <option value="indicacao">Indicação</option>
+                        <option value="pesquisa_google">Pesquisa no Google</option>
+                        <option value="evento">Evento/Feira</option>
+                        <option value="outros">Outros</option>
+                    </select>
+
+                    <label for="message">Mensagem:</label>
+                    <textarea id="message" name="message" required placeholder="Digite sua mensagem aqui..."></textarea>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">Eu concordo com os <a href="#" target="_blank">Termos de Serviço</a> e <a href="#" target="_blank">Política de Privacidade</a>.</label>
+                    </div>
+
+                    <button type="submit">Enviar Mensagem</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 AURA. Todos os direitos reservados.</p>
+            <p>"Quem estará nas trincheiras ao teu lado?<br>E isso importa?<br>-Mais do que a própria guerra" </p>
+            <p>(Ernest Hemingway) </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const teamGrid = document.getElementById('team-grid-scroll');
+            const scrollLeftBtn = document.getElementById('scroll-left-btn');
+            const scrollRightBtn = document.getElementById('scroll-right-btn');
+
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Fechar o menu de navegação ao clicar em um link (para mobile)
+            document.querySelectorAll('#nav-menu a').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+
+            // Lógica de scroll horizontal para a seção de participantes
+            let scrollAmount = 0; 
+            if (teamGrid.firstElementChild) {
+                const firstCard = teamGrid.firstElementChild;
+                const cardWidth = firstCard.offsetWidth;
+                const gridComputedStyle = getComputedStyle(teamGrid);
+                const gap = parseFloat(gridComputedStyle.getPropertyValue('gap')) || 0; 
+                scrollAmount = cardWidth + gap;
+            } else {
+                scrollAmount = 350; // Fallback se não houver cards
+            }
+
+            function updateScrollButtons() {
+                if (teamGrid.scrollLeft <= 5) { 
+                    scrollLeftBtn.classList.add('disabled');
+                } else {
+                    scrollLeftBtn.classList.remove('disabled');
+                }
+
+                if (teamGrid.scrollLeft + teamGrid.clientWidth >= teamGrid.scrollWidth - 5) { 
+                    scrollRightBtn.classList.add('disabled');
+                } else {
+                    scrollRightBtn.classList.remove('disabled');
+                }
+            }
+
+            scrollLeftBtn.addEventListener('click', () => {
+                teamGrid.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                teamGrid.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            });
+
+            teamGrid.addEventListener('scroll', updateScrollButtons);
+            setTimeout(updateScrollButtons, 100); 
+
+
+            // Intersection Observer para animação ao rolar
+            const revealElements = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null, // Observa a viewport
+                rootMargin: '0px',
+                threshold: 0.15 // 15% do elemento visível
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Para animar apenas uma vez
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
