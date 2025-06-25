@@ -8,6 +8,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Variáveis de Cor e Tipografia - PALETA ESCURA COM VARIAÇÕES DE CINZA */
         :root {
@@ -66,13 +67,22 @@
             scroll-behavior: smooth;
             overflow-x: hidden;
             /* Evita scroll horizontal em animações */
+            /* Cursor personalizado */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23e040fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>') 12 12, auto;
         }
+
+        a,
+        button,
+        input[type="submit"] {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="%238a2be2" stroke="%23e040fb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>') 15 15, pointer;
+        }
+
 
         /* Animação ao descer a página (Scroll-Reveal) */
         .reveal-up {
             opacity: 0;
             transform: translateY(60px);
-            /* Mais deslocamento vertical */
+            /* Más desplazamiento vertical */
             transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
         }
 
@@ -91,7 +101,7 @@
         .reveal-scale {
             opacity: 0;
             transform: scale(0.9);
-            /* Mais encolhimento inicial */
+            /* Más encogimiento inicial */
             transition: opacity var(--transition-speed-slow) ease-out, transform var(--transition-speed-slow) ease-out;
         }
 
@@ -100,26 +110,26 @@
             transform: translate(0, 0) scale(1);
         }
 
-        /* Container de Conteúdo */
+        /* Contenedor de Contenido */
         .container {
             max-width: 1400px;
-            /* Container ainda mais largo para mais espaço */
+            /* Contenedor aún más ancho para más espacio */
             margin: 0 auto;
             padding: 0 calc(var(--spacing-unit) * 3);
-            /* 48px de padding nas laterais */
+            /* 48px de padding en los laterales */
         }
 
-        /* Header & Navegação */
+        /* Header & Navegación */
         header {
             background-color: var(--color-dark-secondary);
-            /* Fundo sólido, sem semi-transparência */
+            /* Fondo sólido, sin semi-transparencia */
             padding: calc(var(--spacing-unit) * 1) 0;
             box-shadow: var(--shadow-soft-dark);
             position: sticky;
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--color-dark-quaternary);
-            /* Borda cinza escura 3 */
+            /* Borde gris oscuro 3 */
         }
 
         header .container {
@@ -127,7 +137,7 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
-            /* Para posicionar a nav */
+            /* Para posicionar la nav */
         }
 
         .logo {
@@ -140,7 +150,7 @@
             width: 100px;
             margin-right: var(--spacing-unit);
             filter: drop-shadow(0 0 15px rgba(224, 64, 251, 0.5));
-            /* Sombra colorida mais intensa no logo */
+            /* Sombra colorida más intensa en el logo */
             transition: filter var(--transition-speed-medium) ease;
         }
 
@@ -166,17 +176,21 @@
 
         nav {
             position: static;
-            /* Padrão para desktop */
+            /* Estándar para escritorio */
             width: auto;
         }
 
         nav ul {
             list-style: none;
             display: flex;
+            /* Removido flex-wrap: nowrap para permitir quebra de linha */
+            flex-wrap: wrap; /* Permitir quebra de linha para acomodar zoom */
+            justify-content: flex-end; /* Alinhar os itens à direita no modo desktop */
         }
 
         nav ul li {
-            margin-left: calc(var(--spacing-unit) * 3.5);
+            margin: 0 calc(var(--spacing-unit) * 1.5); /* Ajuste para espaçamento uniforme */
+            /* Removido white-space: nowrap para permitir quebra de linha do elemento do menu */
         }
 
         nav ul li a {
@@ -199,7 +213,7 @@
         nav ul li a:hover {
             color: var(--color-accent-pink);
             background-color: rgba(138, 43, 226, 0.4);
-            /* Usando rgba para poder ajustar opacidade */
+            /* Usando rgba para poder ajustar opacidad */
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
@@ -233,7 +247,7 @@
             transform: rotate(-45deg) translate(9px, -9px);
         }
 
-        /* Hero Section */
+        /* Sección Hero */
         .hero {
             background: linear-gradient(rgba(18, 18, 18, 0.95), rgba(18, 18, 18, 0.95)), url('https://via.placeholder.com/1920x1080/121212/FFFFFF?text=AURA+Dark+Background') no-repeat center center/cover;
             background-attachment: fixed;
@@ -250,6 +264,38 @@
             border-bottom: 2px solid var(--color-dark-quaternary);
         }
 
+        /* Efecto de partículas en el fondo del Hero */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            animation: pulse-background 20s infinite alternate ease-in-out;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        @keyframes pulse-background {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+
+
         .hero::before {
             content: '';
             position: absolute;
@@ -263,18 +309,19 @@
         .hero h2 {
             font-family: var(--font-heading);
             font-size: clamp(3.5rem, 5vw + 1rem, 6rem);
-            /* Ajuste com clamp */
+            /* Ajuste con clamp */
             margin-bottom: calc(var(--spacing-unit) * 3);
             color: var(--color-accent-purple);
             text-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             line-height: 1.1;
             font-weight: 900;
             letter-spacing: 3px;
-            animation: fadeInScale 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
             background: linear-gradient(to right, var(--color-accent-purple), var(--color-accent-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
+            animation: fadeInScale 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            /* Animación de entrada */
         }
 
         .hero h2::after {
@@ -286,14 +333,14 @@
             width: 90%;
             height: 12px;
             background: radial-gradient(ellipse at center, rgba(224, 64, 251, 0.4) 0%, transparent 70%);
-            /* Usando rgba para poder ajustar opacidade */
+            /* Usando rgba para poder ajustar opacidad */
             filter: blur(15px);
         }
 
 
         .hero p {
             font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.3rem);
-            /* Ajuste com clamp */
+            /* Ajuste con clamp */
             max-width: 1100px;
             margin-bottom: calc(var(--spacing-unit) * 5);
             color: var(--color-text-light);
@@ -353,7 +400,7 @@
             background-position: right center;
         }
 
-        /* Keyframes para animações de entrada */
+        /* Keyframes para animaciones de entrada */
         @keyframes fadeInScale {
             from {
                 opacity: 0;
@@ -393,7 +440,7 @@
         }
 
 
-        /* Seções Gerais */
+        /* Secciones Generales */
         section {
             padding: calc(var(--spacing-unit) * 10) 0;
             border-bottom: 1px solid var(--color-dark-quaternary);
@@ -409,7 +456,7 @@
         section h2 {
             font-family: var(--font-heading);
             font-size: clamp(2.5rem, 4vw + 0.8rem, 5rem);
-            /* Ajuste com clamp */
+            /* Ajuste con clamp */
             text-align: center;
             margin-bottom: calc(var(--spacing-unit) * 6);
             color: var(--color-accent-purple);
@@ -433,7 +480,7 @@
             border-radius: 4px;
         }
 
-        /* Quem Somos Section */
+        /* Sección Quiénes Somos */
         #quem-somos .section-content {
             display: flex;
             flex-wrap: wrap;
@@ -447,7 +494,7 @@
             min-width: 400px;
             max-width: 700px;
             background-color: var(--color-dark-secondary);
-            /* Fundo cinza escuro 1 */
+            /* Fondo gris oscuro 1 */
             border-radius: var(--border-radius-base);
             padding: calc(var(--spacing-unit) * 3.5);
             box-shadow: var(--shadow-strong-dark);
@@ -505,19 +552,80 @@
             filter: drop-shadow(0 0 8px var(--color-accent-pink));
         }
 
-        /* Participantes Section */
+        /* Sección Nuestros Pilares / Nuestra Filosofía (Nueva) */
+        #nossos-pilares {
+            background-color: var(--color-dark-primary);
+            /* Mantiene el fondo principal */
+        }
+
+        #nossos-pilares .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing-unit) * 4);
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        #nossos-pilares .pillar-card {
+            background-color: var(--color-dark-secondary);
+            border-radius: var(--border-radius-base);
+            padding: calc(var(--spacing-unit) * 4);
+            /* Aumentado el padding */
+            box-shadow: var(--shadow-strong-dark);
+            text-align: center;
+            transition: all var(--transition-speed-medium) ease;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        #nossos-pilares .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            background-color: #252525;
+            border-color: var(--color-accent-pink);
+        }
+
+        #nossos-pilares .pillar-card .icon {
+            font-size: 4rem;
+            color: var(--color-accent-pink);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            filter: drop-shadow(0 0 15px rgba(224, 64, 251, 0.5));
+            transition: color var(--transition-speed-fast) ease;
+        }
+
+        #nossos-pilares .pillar-card:hover .icon {
+            color: var(--color-accent-purple);
+        }
+
+        #nossos-pilares .pillar-card h3 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--color-accent-purple);
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        #nossos-pilares .pillar-card p {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+
+        /* Sección Participantes */
         #participantes .team-scroll-wrapper {
             position: relative;
             padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 5);
-            /* Ajustado o vertical */
             margin: calc(var(--spacing-unit) * -4) calc(var(--spacing-unit) * -5);
-            /* Ajustado o vertical */
-            height: 500px;
-            /* Aumenta a altura do wrapper para dar espaço ao hover */
+            height: 1020px;
+            /* Aumentado la altura en pantallas más grandes */
             display: flex;
-            /* Para centralizar os itens verticalmente */
             align-items: center;
-            /* Centraliza verticalmente */
+            justify-content: center;
+            /* Centra horizontalmente también */
         }
 
         #participantes .scroll-button {
@@ -525,7 +633,6 @@
             top: 50%;
             transform: translateY(-50%);
             background-color: rgba(31, 31, 31, 0.7);
-            /* Cinza escuro semi-transparente */
             border: 1px solid var(--color-dark-quaternary);
             color: var(--color-text-light);
             font-size: 2.5rem;
@@ -539,11 +646,9 @@
             width: 60px;
             height: 60px;
             display: flex;
-            /* Mantém visível por padrão (desktop) */
             align-items: center;
             justify-content: center;
             user-select: none;
-            /* Evita seleção de texto */
         }
 
         #participantes .scroll-button:hover {
@@ -560,12 +665,10 @@
 
         #participantes .scroll-button.left {
             left: var(--spacing-unit);
-            /* Alinha com o padding interno do wrapper */
         }
 
         #participantes .scroll-button.right {
             right: var(--spacing-unit);
-            /* Alinha com o padding interno do wrapper */
         }
 
         #participantes .scroll-button.disabled {
@@ -579,32 +682,21 @@
         #participantes .team-grid {
             display: grid;
             grid-auto-flow: column;
-            /* Faz os itens fluírem horizontalmente */
-            grid-auto-columns: minmax(300px, 1fr);
-            /* Cada coluna terá no mínimo 300px e expandirá */
-            gap: calc(var(--spacing-unit) * 4);
-            /* Espaçamento entre os itens */
+            grid-auto-columns: minmax(380px, 1fr);
+            /* Aumentado el ancho mínimo de las tarjetas */
+            gap: calc(var(--spacing-unit) * 4.5);
+            /* Aumentado el espaciado */
             justify-content: start;
-            /* Alinha o início do grid à esquerda */
             overflow-x: scroll;
-            /* Adiciona barra de scroll horizontal */
             scroll-snap-type: x mandatory;
-            /* Para rolagem suave e "snap" nos itens */
             padding-bottom: calc(var(--spacing-unit) * 0.5);
-            /* Espaço para não cortar a sombra dos cards */
             -webkit-overflow-scrolling: touch;
-            /* Melhora o scroll em iOS */
+            height: 600px;
             scroll-behavior: smooth;
-            /* *** PROPRIEDADE PARA SCROLL SUAVE *** */
-
-            /* Ocultar barra de rolagem visualmente */
             -ms-overflow-style: none;
-            /* IE and Edge */
             scrollbar-width: none;
-            /* Firefox */
         }
 
-        /* Ocultar barra de rolagem no WebKit (Chrome, Safari, etc.) */
         #participantes .team-grid::-webkit-scrollbar {
             display: none;
         }
@@ -612,48 +704,37 @@
 
         #participantes .team-member {
             background-color: var(--color-dark-secondary);
-            /* Fundo cinza escuro 1 */
             border-radius: var(--border-radius-base);
-            padding: calc(var(--spacing-unit) * 3);
+            padding: calc(var(--spacing-unit) * 4.5);
+            /* Aumentado el padding vertical para más altura */
             text-align: center;
             box-shadow: var(--shadow-strong-dark);
             transition: all var(--transition-speed-medium) ease;
             position: relative;
             scroll-snap-align: start;
-            /* Faz com que os itens "grudem" ao rolar */
             border: 1px solid var(--color-dark-quaternary);
-            /* Borda sólida */
-            min-width: 300px;
-            /* Garante que os cards tenham largura mínima para scroll */
+            min-width: 380px;
+            /* Asegura que las tarjetas tengan un ancho mínimo para el scroll */
         }
 
         #participantes .team-member:hover {
-            transform: translateY(-10px);
-            /* Levantamento mais sutil */
+            transform: translateY(-0px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-            /* Sombra mais suave no hover */
             background-color: #252525;
-            /* Escurecimento no hover */
             border-color: var(--color-accent-pink);
-            /* Borda roxa no hover */
         }
 
         #participantes .team-member img {
             width: 190px;
-            /* Tamanho ajustado para visibilidade */
             height: 190px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: calc(var(--spacing-unit) * 2);
             border: 6px solid var(--color-accent-purple);
-            /* Borda sólida roxa */
             box-shadow: 0 0 0 4px var(--color-dark-secondary),
-                /* Borda interna do card */
                 0 0 0 8px var(--color-accent-pink);
-            /* Borda rosa mais externa */
             transition: all var(--transition-speed-medium) ease;
             filter: grayscale(20%);
-            /* Menos grayscale para ter mais cor natural */
             z-index: 1;
             position: relative;
         }
@@ -661,13 +742,11 @@
         #participantes .team-member:hover img {
             filter: grayscale(0%);
             border-color: var(--color-accent-pink);
-            /* Inverte a cor da borda no hover */
             box-shadow: 0 0 0 4px var(--color-dark-secondary), 0 0 0 8px var(--color-accent-purple);
-            /* Inverte sombra no hover */
             transform: scale(1.02);
         }
 
-        /* Cores de borda específicas (mantidas para consistência, mas o border-color é sobrescrito no hover) */
+        /* Colores de borde específicos (mantenidos para consistencia, pero el border-color se sobrescribe en el hover) */
         #participantes .team-member.pink-border img {
             border-color: var(--color-accent-pink);
         }
@@ -704,19 +783,31 @@
             font-weight: 300;
         }
 
-        /* Projetos Section */
+        /* Sección Proyectos */
         #projetos .project-card {
             background-color: var(--color-dark-secondary);
-            /* Fundo cinza escuro 1 */
             border-radius: var(--border-radius-base);
-            padding: calc(var(--spacing-unit) * 4);
+            padding: calc(var(--spacing-unit) * 3.5);
+            /* Ajustado el padding interno para más altura */
             box-shadow: var(--shadow-strong-dark);
             text-align: center;
             transition: all var(--transition-speed-medium) ease;
             border: 2px solid rgba(224, 64, 251, 0.4);
             position: relative;
             overflow: hidden;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
         }
+
+        #projetos .project-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            /* Aumentado el ancho mínimo de las tarjetas */
+            gap: calc(var(--spacing-unit) * 4);
+            /* Espaciado entre tarjetas */
+        }
+
 
         #projetos .project-card:hover {
             transform: translateY(-12px);
@@ -733,7 +824,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(45deg, rgba(224, 64, 251, 0.1), transparent 50%, rgba(138, 43, 226, 0.1));
-            /* Usando rgba para poder ajustar opacidade */
             opacity: 0;
             transition: opacity var(--transition-speed-medium) ease;
         }
@@ -745,38 +835,157 @@
 
         #projetos .project-card h3 {
             font-family: var(--font-heading);
-            font-size: 3rem;
+            font-size: 2.5rem;
+            /* Ajustado para mejor jerarquía */
             color: var(--color-accent-purple);
-            margin-bottom: calc(var(--spacing-unit) * 2.2);
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            /* Ajustado espaciado */
             font-weight: 800;
             letter-spacing: 1.5px;
         }
 
         #projetos .project-card p {
-            margin-bottom: calc(var(--spacing-unit) * 2.5);
-            font-size: 1.45rem;
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
+            /* Ajustado espaciado */
+            font-size: 1.25rem;
+            /* Ajustado tamaño del texto */
             color: var(--color-text-light);
             font-weight: 300;
+            flex-grow: 1;
+            /* Hace que el párrafo crezca para ocupar espacio */
         }
 
         #projetos .project-card .delivery-date {
             font-weight: 700;
             color: var(--color-accent-pink);
-            font-size: 1.6rem;
+            font-size: 1.4rem;
+            /* Ajustado tamaño del texto */
             background-color: rgba(224, 64, 251, 0.15);
-            padding: calc(var(--spacing-unit) * 0.9) calc(var(--spacing-unit) * 1.8);
+            padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.5);
+            /* Ajustado padding */
             border-radius: calc(var(--border-radius-base) * 0.8);
             display: inline-block;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             letter-spacing: 0.8px;
+            margin-top: auto;
+            /* Empuja la fecha al final de la tarjeta */
         }
 
-        /* Contato Section */
+        #projetos .project-card .project-image-placeholder {
+            width: 100%;
+            height: 300px;
+            /* Aumentado la altura del marcador de posición de la imagen */
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius-base);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: 1px dashed var(--color-dark-quaternary);
+        }
+
+        /* Sección Testimonios (Nueva) */
+        #depoimentos {
+            background-color: var(--color-dark-secondary);
+            /* Un poco más claro que el primario */
+            padding: calc(var(--spacing-unit) * 8) 0;
+        }
+
+        #depoimentos .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: calc(var(--spacing-unit) * 3);
+            justify-content: center;
+        }
+
+        #depoimentos .testimonial-card {
+            background-color: var(--color-dark-tertiary);
+            border-radius: var(--border-radius-base);
+            padding: calc(var(--spacing-unit) * 4);
+            /* Aumentado el padding para más altura */
+            box-shadow: var(--shadow-strong-dark);
+            border: 1px solid var(--color-dark-quaternary);
+            transition: all var(--transition-speed-medium) ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Para empujar la cita y el autor */
+        }
+
+        #depoimentos .testimonial-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            border-color: var(--color-accent-pink);
+        }
+
+        #depoimentos .testimonial-card p {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--color-text-light);
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            position: relative;
+            padding-left: calc(var(--spacing-unit) * 2);
+        }
+
+        #depoimentos .testimonial-card p::before {
+            content: '“';
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            font-size: 4rem;
+            color: var(--color-accent-purple);
+            line-height: 1;
+            font-family: serif;
+        }
+
+        #depoimentos .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            /* Alinea al autor a la derecha */
+            margin-top: auto;
+            /* Empuja al final de la tarjeta */
+            padding-top: calc(var(--spacing-unit) * 1.5);
+            border-top: 1px dashed rgba(224, 64, 251, 0.2);
+        }
+
+        #depoimentos .testimonial-author img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: calc(var(--spacing-unit) * 1.5);
+            border: 3px solid var(--color-accent-pink);
+            box-shadow: 0 0 10px rgba(224, 64, 251, 0.4);
+        }
+
+        #depoimentos .testimonial-author .info {
+            text-align: right;
+        }
+
+        #depoimentos .testimonial-author .info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-accent-pink);
+            margin-bottom: calc(var(--spacing-unit) * 0.2);
+            font-weight: 700;
+        }
+
+        #depoimentos .testimonial-author .info span {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        /* Sección Contacto */
         #contato .contact-info {
             text-align: center;
             margin-bottom: calc(var(--spacing-unit) * 5);
             background-color: var(--color-dark-secondary);
-            /* Fundo cinza escuro 1 */
+            /* Fondo gris oscuro 1 */
             padding: calc(var(--spacing-unit) * 4);
             border-radius: var(--border-radius-base);
             box-shadow: var(--shadow-strong-dark);
@@ -797,6 +1006,7 @@
             font-size: 1.4rem;
             margin-bottom: calc(var(--spacing-unit) * 1.8);
             color: var(--color-text-light);
+            /* Texto claro */
             font-weight: 300;
         }
 
@@ -817,6 +1027,7 @@
             margin-bottom: calc(var(--spacing-unit) * 1.2);
             font-size: 1.35rem;
             color: var(--color-text-light);
+            /* Texto claro */
             position: relative;
             padding-left: calc(var(--spacing-unit) * 2.8);
             font-weight: 400;
@@ -858,7 +1069,7 @@
             max-width: 900px;
             margin: 0 auto;
             background-color: var(--color-dark-secondary);
-            /* Fundo cinza escuro 1 */
+            /* Fondo gris oscuro 1 */
             padding: calc(var(--spacing-unit) * 4.5);
             border-radius: var(--border-radius-base);
             box-shadow: var(--shadow-strong-dark);
@@ -888,15 +1099,15 @@
         .contact-form input[type="email"],
         .contact-form textarea,
         .contact-form select {
-            /* Estilizando todos os inputs de texto, email, textarea e select */
+            /* Estilizando todos los inputs de texto, email, textarea y select */
             width: 100%;
             padding: calc(var(--spacing-unit) * 1.5);
             margin-bottom: calc(var(--spacing-unit) * 2.8);
             border: 1px solid var(--color-dark-quaternary);
-            /* Borda cinza escuro 3 */
+            /* Borde gris oscuro 3 */
             border-radius: calc(var(--border-radius-base) * 0.7);
             background-color: var(--color-dark-tertiary);
-            /* Fundo cinza escuro 2 para inputs */
+            /* Fondo gris oscuro 2 para inputs */
             color: var(--color-text-light);
             font-size: 1.25rem;
             transition: all var(--transition-speed-fast) ease;
@@ -905,19 +1116,19 @@
 
         .contact-form select {
             -webkit-appearance: none;
-            /* Remove a seta padrão do Chrome/Safari */
+            /* Elimina la flecha predeterminada de Chrome/Safari */
             -moz-appearance: none;
-            /* Remove a seta padrão do Firefox */
+            /* Elimina la flecha predeterminada de Firefox */
             appearance: none;
-            /* Remove a seta padrão */
+            /* Elimina la flecha predeterminada */
             background-image: linear-gradient(45deg, transparent 50%, var(--color-text-muted) 50%),
                 linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
             background-position: calc(100% - 20px) center, calc(100% - 15px) center;
             background-size: 8px 8px, 8px 8px;
-            /* Ajuste o tamanho da seta customizada */
+            /* Ajusta el tamaño de la flecha personalizada */
             background-repeat: no-repeat;
             padding-right: calc(var(--spacing-unit) * 3);
-            /* Adiciona padding para a seta customizada */
+            /* Agrega padding para la flecha personalizada */
             cursor: pointer;
         }
 
@@ -925,15 +1136,15 @@
         .contact-form input[type="email"]:focus,
         .contact-form textarea:focus,
         .contact-form select:focus {
-            /* Adicionado foco para select */
+            /* Agregado foco para select */
             border-color: var(--color-accent-purple);
             outline: none;
             box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.3), inset 0 4px 10px rgba(0, 0, 0, 0.8);
-            /* Brilho suave */
+            /* Brillo suave */
             background-color: #202020;
         }
 
-        /* Estilização do placeholder */
+        /* Estilización del placeholder */
         .contact-form input::placeholder,
         .contact-form textarea::placeholder {
             color: var(--color-text-muted);
@@ -968,7 +1179,7 @@
             appearance: none;
             position: relative;
             flex-shrink: 0;
-            /* Evita que o checkbox encolha em telas pequenas */
+            /* Evita que el checkbox se encoja en pantallas pequeñas */
         }
 
         .contact-form .checkbox-group input[type="checkbox"]:checked {
@@ -1012,7 +1223,7 @@
         }
 
 
-        /* Estilo para o botão de envio de mensagem no formulário de contato */
+        /* Estilo para el botón de envío de mensaje en el formulario de contacto */
         .contact-form button {
             display: block;
             width: 100%;
@@ -1026,16 +1237,16 @@
             cursor: pointer;
             transition: all var(--transition-speed-medium) ease;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(224, 64, 251, 0.5);
-            /* Sombra mais forte e brilho */
+            /* Sombra más fuerte y brillo */
             background-size: 200% auto;
             letter-spacing: 2px;
             text-transform: uppercase;
             position: relative;
-            /* Necessário para o pseudo-elemento */
+            /* Necesario para el pseudo-elemento */
             overflow: hidden;
-            /* Para esconder o overflow do pseudo-elemento */
+            /* Para ocultar el desbordamiento del pseudo-elemento */
             z-index: 1;
-            /* Garante que o conteúdo fique acima do brilho */
+            /* Asegura que el contenido esté por encima del brillo */
         }
 
         .contact-form button::before {
@@ -1049,7 +1260,7 @@
             background-size: 400%;
             z-index: -1;
             filter: blur(15px);
-            /* Aumenta o blur para um brilho mais suave e difuso */
+            /* Aumenta el desenfoque para un brillo más suave y difuso */
             border-radius: var(--border-radius-base);
             opacity: 0;
             transition: opacity var(--transition-speed-medium) ease, background-position var(--transition-speed-slow) ease;
@@ -1058,21 +1269,21 @@
         .contact-form button:hover::before {
             opacity: 1;
             animation: pulse-border-contact 2s infinite;
-            /* Animação de pulso para a borda/brilho */
+            /* Animación de pulso para el borde/brillo */
         }
 
         .contact-form button:hover {
             background-position: right center;
-            /* Move o gradiente no hover */
+            /* Mueve el degradado en el hover */
             transform: translateY(-10px) scale(1.03);
-            /* Efeito de elevação e leve aumento */
+            /* Efecto de elevación y ligero aumento */
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(224, 64, 251, 0.8);
-            /* Sombra mais intensa e brilho no hover */
+            /* Sombra más intensa y brillo en el hover */
             filter: brightness(1.2);
-            /* Deixa o botão mais brilhante no hover */
+            /* Hace que el botón sea más brillante en el hover */
         }
 
-        /* Keyframes para a animação do brilho/borda do botão de contato */
+        /* Keyframes para la animación del brillo/borde del botón de contacto */
         @keyframes pulse-border-contact {
             0% {
                 background-position: 0% 50%;
@@ -1087,13 +1298,25 @@
             }
         }
 
+        /* Barra de Progreso de Desplazamiento (Nueva) */
+        #scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 8px;
+            /* Altura de la barra */
+            background: linear-gradient(to right, var(--color-accent-pink), var(--color-accent-purple));
+            z-index: 9999;
+            transition: width 0.1s linear;
+        }
 
         /* Footer */
         footer {
             background-color: var(--color-dark-secondary);
-            /* Cinza escuro 1 para o footer */
+            /* Gris oscuro 1 para el pie de página */
             color: var(--color-text-light);
-            /* Texto claro no footer */
+            /* Texto claro en el pie de página */
             text-align: center;
             padding: calc(var(--spacing-unit) * 5) 0;
             margin-top: calc(var(--spacing-unit) * 8);
@@ -1115,7 +1338,17 @@
             color: var(--color-text-light);
         }
 
-        /* Responsividade */
+        /* Responsividad */
+        @media (min-width: 993px) { /* Adicionado para garantir que no desktop não quebre a linha */
+            nav ul {
+                flex-wrap: nowrap;
+            }
+            nav ul li {
+                margin-left: calc(var(--spacing-unit) * 3.5);
+                white-space: nowrap;
+            }
+        }
+
         @media (max-width: 1200px) {
             .container {
                 padding: 0 calc(var(--spacing-unit) * 2);
@@ -1129,7 +1362,8 @@
             #participantes .team-scroll-wrapper {
                 padding: calc(var(--spacing-unit) * 2.5) var(--spacing-unit);
                 margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -1);
-                height: auto;
+                height: 650px;
+                /* Mantiene una altura generosa */
             }
 
             #participantes .scroll-button.left {
@@ -1138,6 +1372,49 @@
 
             #participantes .scroll-button.right {
                 right: 0;
+            }
+
+            #nossos-pilares .pillars-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            #nossos-pilares .pillar-card {
+                padding: calc(var(--spacing-unit) * 3.5);
+                /* Ajuste de padding */
+            }
+
+            #projetos .project-card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                /* Ajustado el ancho mínimo de las tarjetas */
+                gap: calc(var(--spacing-unit) * 3);
+                /* Disminuye un poco el espacio */
+            }
+
+            #projetos .project-card {
+                padding: calc(var(--spacing-unit) * 3);
+                /* Ajustado el padding interno */
+            }
+
+            #projetos .project-card .project-image-placeholder {
+                height: 250px;
+                /* Ajuste de la altura del marcador de posición */
+            }
+
+            #participantes .team-grid {
+                grid-auto-columns: minmax(350px, 1fr);
+                /* Ajustado el ancho mínimo de las tarjetas */
+                gap: calc(var(--spacing-unit) * 4);
+                /* Ajustado el espaciado */
+            }
+
+            #participantes .team-member {
+                padding: calc(var(--spacing-unit) * 4);
+                /* Ajustado el padding */
+            }
+
+            #depoimentos .testimonial-card {
+                padding: calc(var(--spacing-unit) * 3.5);
+                /* Ajuste de padding */
             }
         }
 
@@ -1156,7 +1433,7 @@
             }
 
             nav ul li {
-                margin-left: calc(var(--spacing-unit) * 2.5);
+                margin: calc(var(--spacing-unit) * 0.8) 0; /* Ajuste para espaçamento uniforme em modo mobile */
             }
 
             nav ul li a {
@@ -1201,9 +1478,32 @@
                 margin-bottom: calc(var(--spacing-unit) * 1);
             }
 
+            #nossos-pilares .pillar-card .icon {
+                font-size: 3.5rem;
+            }
+
+            #nossos-pilares .pillar-card h3 {
+                font-size: 1.9rem;
+            }
+
+            #nossos-pilares .pillar-card p {
+                font-size: 1.1rem;
+            }
+
+            #participantes .team-scroll-wrapper {
+                height: 550px;
+                /* Ajuste de la altura en pantallas medianas */
+                padding: calc(var(--spacing-unit) * 2.5) var(--spacing-unit);
+            }
+
             #participantes .team-grid {
-                grid-auto-columns: minmax(280px, 1fr);
+                grid-auto-columns: minmax(300px, 1fr);
                 gap: calc(var(--spacing-unit) * 3.5);
+            }
+
+            #participantes .team-member {
+                padding: calc(var(--spacing-unit) * 3.5);
+                /* Ajustado el padding */
             }
 
             #participantes .team-member img {
@@ -1220,19 +1520,57 @@
             }
 
             #projetos .project-card {
-                padding: calc(var(--spacing-unit) * 3.5);
+                padding: calc(var(--spacing-unit) * 2.5);
+                /* Ajustado el padding */
+            }
+
+            #projetos .project-card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                /* Ajustado el ancho mínimo de las tarjetas */
+                gap: calc(var(--spacing-unit) * 2.5);
+                /* Ajustado el espacio */
             }
 
             #projetos .project-card h3 {
-                font-size: 2.8rem;
+                font-size: 2.2rem;
+                /* Ajustado para mejor jerarquía */
             }
 
             #projetos .project-card p {
-                font-size: 1.3rem;
+                font-size: 1.15rem;
+                /* Ajustado el tamaño del texto */
             }
 
             #projetos .project-card .delivery-date {
-                font-size: 1.4rem;
+                font-size: 1.2rem;
+                /* Ajustado el tamaño del texto */
+            }
+
+            #projetos .project-card .project-image-placeholder {
+                height: 220px;
+                /* Ajuste de la altura del marcador de posición */
+            }
+
+            #depoimentos .testimonial-card {
+                padding: calc(var(--spacing-unit) * 3.5);
+                /* Ajuste de padding */
+            }
+
+            #depoimentos .testimonial-card p {
+                font-size: 1.2rem;
+            }
+
+            #depoimentos .testimonial-author img {
+                width: 60px;
+                height: 60px;
+            }
+
+            #depoimentos .testimonial-author .info h4 {
+                font-size: 1.3rem;
+            }
+
+            #depoimentos .testimonial-author .info span {
+                font-size: 1rem;
             }
 
             #contato .contact-info {
@@ -1274,12 +1612,15 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+                /* Elimina el cursor personalizado en móviles */
+            }
+
             header .container {
                 display: flex;
                 flex-wrap: wrap;
-                /* Permite que os itens quebrem linha */
                 justify-content: space-between;
-                /* Espaçamento entre logo e hamburger */
                 align-items: center;
                 padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
             }
@@ -1288,7 +1629,6 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                /* Centraliza o conteúdo */
                 flex: 1;
                 order: 1;
                 position: relative;
@@ -1312,10 +1652,8 @@
             nav {
                 width: 100%;
                 order: 3;
-                /* Coloca a navegação abaixo da logo e do hamburger */
                 position: absolute;
                 top: 100%;
-                /* Inicia logo abaixo do header */
                 left: 0;
                 display: none;
                 background-color: var(--color-dark-secondary);
@@ -1351,7 +1689,6 @@
             .hamburger {
                 display: flex;
                 order: 2;
-                /* Coloca o hamburger depois da logo */
             }
 
             .hamburger span {
@@ -1412,30 +1749,42 @@
                 top: -3px;
             }
 
-            #participantes .team-scroll-wrapper {
-                padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
-                margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -2);
+            #nossos-pilares .pillar-card .icon {
+                font-size: 3rem;
             }
 
-            #participantes .scroll-button {
-                display: none;
+            #nossos-pilares .pillar-card h3 {
+                font-size: 1.7rem;
+            }
+
+            #nossos-pilares .pillar-card p {
+                font-size: 1rem;
+            }
+
+            #nossos-pilares .pillar-card {
+                padding: calc(var(--spacing-unit) * 3);
+                /* Ajuste de padding */
+            }
+
+            #participantes .team-scroll-wrapper {
+                height: 500px;
+                /* Ajuste de la altura en pantallas más pequeñas */
+                padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2);
             }
 
             #participantes .team-grid {
-                grid-auto-columns: minmax(250px, 1fr);
+                grid-auto-columns: minmax(280px, 1fr);
                 gap: calc(var(--spacing-unit) * 2.5);
             }
 
             #participantes .team-member {
-                padding: calc(var(--spacing-unit) * 2);
-                background-color: var(--color-dark-secondary);
+                padding: calc(var(--spacing-unit) * 3);
+                /* Ajustado el padding */
             }
 
             #participantes .team-member img {
                 width: 160px;
                 height: 160px;
-                border-width: 5px;
-                box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.05), 0 0 0 12px var(--color-accent-pink);
             }
 
             #participantes .team-member h3 {
@@ -1447,22 +1796,57 @@
             }
 
             #projetos .project-card {
-                padding: calc(var(--spacing-unit) * 2.5);
-                background-color: var(--color-dark-secondary);
+                padding: calc(var(--spacing-unit) * 2);
+                /* Ajustado el padding */
+            }
+
+            #projetos .project-card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                /* Ajustado el ancho mínimo de las tarjetas */
+                gap: calc(var(--spacing-unit) * 2);
+                /* Ajustado el espacio */
             }
 
             #projetos .project-card h3 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                /* Ajustado para mejor jerarquía */
             }
 
             #projetos .project-card p {
-                font-size: 1.2rem;
-                color: var(--color-text-light);
+                font-size: 1.15rem;
+                /* Ajustado el tamaño del texto */
             }
 
             #projetos .project-card .delivery-date {
-                font-size: 1.3rem;
+                font-size: 1.15rem;
                 padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.5);
+            }
+
+            #projetos .project-card .project-image-placeholder {
+                height: 200px;
+                /* Ajuste de la altura del marcador de posición */
+            }
+
+            #depoimentos .testimonial-card {
+                padding: calc(var(--spacing-unit) * 3);
+                /* Ajuste de padding */
+            }
+
+            #depoimentos .testimonial-card p {
+                font-size: 1.1rem;
+            }
+
+            #depoimentos .testimonial-author img {
+                width: 50px;
+                height: 50px;
+            }
+
+            #depoimentos .testimonial-author .info h4 {
+                font-size: 1.2rem;
+            }
+
+            #depoimentos .testimonial-author .info span {
+                font-size: 0.9rem;
             }
 
             #contato .contact-info {
@@ -1554,7 +1938,6 @@
             .logo h1 {
                 font-size: 1.6rem;
                 letter-spacing: 1px;
-                /* margin-left e margin-right auto já fazem o trabalho */
             }
 
             .logo img {
@@ -1604,6 +1987,27 @@
                 top: 0px;
             }
 
+            #nossos-pilares .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #nossos-pilares .pillar-card .icon {
+                font-size: 2.5rem;
+            }
+
+            #nossos-pilares .pillar-card h3 {
+                font-size: 1.5rem;
+            }
+
+            #nossos-pilares .pillar-card p {
+                font-size: 0.9rem;
+            }
+
+            #nossos-pilares .pillar-card {
+                padding: calc(var(--spacing-unit) * 2.5);
+                /* Ajuste de padding */
+            }
+
             #participantes .team-grid {
                 grid-auto-columns: 1fr;
             }
@@ -1611,7 +2015,8 @@
             #participantes .team-member {
                 max-width: 280px;
                 margin: 0 auto;
-                padding: calc(var(--spacing-unit) * 1.5);
+                padding: calc(var(--spacing-unit) * 2.5);
+                /* Ajustado el padding */
             }
 
             #participantes .team-member img {
@@ -1630,20 +2035,50 @@
             }
 
             #projetos .project-card {
-                padding: calc(var(--spacing-unit) * 2);
+                padding: calc(var(--spacing-unit) * 1.5);
+                /* Ajustado el padding */
             }
 
             #projetos .project-card h3 {
-                font-size: 2.2rem;
+                font-size: 2rem;
+                /* Ajustado para mejor jerarquía */
             }
 
             #projetos .project-card p {
-                font-size: 1.15rem;
+                font-size: 1rem;
+                /* Ajustado el tamaño del texto */
             }
 
             #projetos .project-card .delivery-date {
-                font-size: 1.15rem;
-                padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 1.2);
+                font-size: 1.1rem;
+                padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1);
+            }
+
+            #projetos .project-card .project-image-placeholder {
+                height: 180px;
+                /* Ajuste de la altura del marcador de posición */
+            }
+
+            #depoimentos .testimonial-card {
+                padding: calc(var(--spacing-unit) * 2.5);
+                /* Ajuste de padding */
+            }
+
+            #depoimentos .testimonial-card p {
+                font-size: 1rem;
+            }
+
+            #depoimentos .testimonial-author img {
+                width: 40px;
+                height: 40px;
+            }
+
+            #depoimentos .testimonial-author .info h4 {
+                font-size: 1.1rem;
+            }
+
+            #depoimentos .testimonial-author .info span {
+                font-size: 0.8rem;
             }
 
             #contato .contact-info {
@@ -1727,6 +2162,8 @@
 </head>
 
 <body>
+    <div id="scroll-progress-bar"></div>
+
     <header>
         <div class="container">
             <div class="logo">
@@ -1736,8 +2173,10 @@
             <nav>
                 <ul id="nav-menu">
                     <li><a href="#quem-somos">Quem Somos</a></li>
+                    <li><a href="#nossos-pilares">Nossos Pilares</a></li>
                     <li><a href="#participantes">Participantes</a></li>
                     <li><a href="#projetos">Projetos</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
                 <div class="hamburger" id="hamburger-menu">
@@ -1751,7 +2190,7 @@
 
     <main>
         <section class="hero">
-            <h2>Alma no Silício</h2>
+            <h2 class="reveal reveal-scale">Alma no Silício</h2>
             <p>A nossa equação é simples: Cérebro (Tecnologia) + Coração (Design) = Alma. Estamos transformando o futuro
                 com sistemas que emocionam e impressionam.</p>
             <a href="#projetos" class="btn">Conheça Nossos Projetos</a>
@@ -1763,7 +2202,7 @@
                 <div class="section-content">
                     <div class="text-content">
                         <p>Na Aura, vivemos na interseção da tecnologia e da arte, dedicados a criar sistemas com alma
-                            que emocionam. Somos a Minoria Radical, odiamos a mediocridade e comprimimos o tempo para
+                            que emocionam. Somos a **Minoria Radical**, odiamos a mediocridade e comprimimos o tempo para
                             entregar excelência. Nossa cultura é nosso código. </p>
                         <h3>Células - Lógica + Arte</h3>
                         <p>Esta é a Aura: </p>
@@ -1772,6 +2211,35 @@
                             <li>4 Células de Criação. </li>
                             <li>10 pessoas. Focadas. Integradas. </li>
                         </ul>
+                        <p>Nosso propósito é ir além do funcional, criando experiências que **resonam com a essência humana**, onde cada linha de código e pixel de design carrega uma intenção profunda e um impacto duradouro.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nossos-pilares" class="reveal reveal-up">
+            <div class="container">
+                <h2>Nossos Pilares - A Essência da AURA</h2>
+                <div class="pillars-grid">
+                    <div class="pillar-card reveal reveal-scale" style="transition-delay: 0.1s;">
+                        <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3>Inovação Constante</h3>
+                        <p>Buscamos sempre as mais novas tecnologias e metodologias para garantir soluções de ponta e inovadoras.</p>
+                    </div>
+                    <div class="pillar-card reveal reveal-scale" style="transition-delay: 0.2s;">
+                        <div class="icon"><i class="fas fa-heart"></i></div>
+                        <h3>Design Centrado no Humano</h3>
+                        <p>Cada projeto é pensado para emocionar, com foco na usabilidade e na experiência que ressoa com o usuário.</p>
+                    </div>
+                    <div class="pillar-card reveal reveal-scale" style="transition-delay: 0.3s;">
+                        <div class="icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Excelência e Velocidade</h3>
+                        <p>Comprimimos o tempo para entregar resultados de altíssima qualidade, sem abrir mão da perfeição em cada detalhe.</p>
+                    </div>
+                    <div class="pillar-card reveal reveal-scale" style="transition-delay: 0.4s;">
+                        <div class="icon"><i class="fas fa-users-rays"></i></div>
+                        <h3>Colaboração Integrada</h3>
+                        <p>Nossas células de direção e criação trabalham em sintonia, transformando ideias em realidade de forma coesa e eficiente.</p>
                     </div>
                 </div>
             </div>
@@ -1781,76 +2249,76 @@
             <div class="container">
                 <h2>Nossos Participantes</h2>
                 <div class="team-scroll-wrapper">
-                    <button class="scroll-button left" id="scroll-left-btn">&lt;</button>
+                    <button class="scroll-button left" id="scroll-left-btn"><</button>
                     <div class="team-grid" id="team-grid-scroll">
                         <div class="team-member pink-border reveal reveal-scale">
                             <img src="https://via.placeholder.com/190/e040fb/F0F0F0?text=Participante+1"
-                                alt="Participante 1">
+                                alt="Participante 1 - Artista">
                             <h3>Participante 1</h3>
                             <p>Artista / Célula de Criação</p>
                         </div>
                         <div class="team-member pink-border reveal reveal-scale" style="transition-delay: 0.1s;">
                             <img src="https://via.placeholder.com/190/e040fb/F0F0F0?text=Participante+2"
-                                alt="Participante 2">
+                                alt="Participante 2 - Artista">
                             <h3>Participante 2</h3>
                             <p>Artista / Célula de Criação</p>
                         </div>
                         <div class="team-member purple-border reveal reveal-scale" style="transition-delay: 0.2s;">
                             <img src="https://via.placeholder.com/190/8a2be2/F0F0F0?text=Participante+3"
-                                alt="Participante 3">
+                                alt="Participante 3 - Desenvolvedor">
                             <h3>Participante 3</h3>
                             <p>Desenvolvedor / Célula de Criação</p>
                         </div>
                         <div class="team-member purple-border reveal reveal-scale" style="transition-delay: 0.3s;">
                             <img src="https://via.placeholder.com/190/8a2be2/F0F0F0?text=Participante+4"
-                                alt="Participante 4">
+                                alt="Participante 4 - Desenvolvedor">
                             <h3>Participante 4</h3>
                             <p>Desenvolvedor / Célula de Criação</p>
                         </div>
                         <div class="team-member yellow-border reveal reveal-scale" style="transition-delay: 0.4s;">
                             <img src="https://via.placeholder.com/190/FFD700/F0F0F0?text=Participante+5"
-                                alt="Participante 5">
+                                alt="Participante 5 - UX/UI Designer">
                             <h3>Participante 5</h3>
                             <p>UX/UI Designer / Célula de Criação</p>
                         </div>
                         <div class="team-member yellow-border reveal reveal-scale" style="transition-delay: 0.5s;">
                             <img src="https://via.placeholder.com/190/FFD700/F0F0F0?text=Participante+6"
-                                alt="Participante 6">
+                                alt="Participante 6 - UX/UI Designer">
                             <h3>Participante 6</h3>
                             <p>UX/UI Designer / Célula de Criação</p>
                         </div>
                         <div class="team-member green-border reveal reveal-scale" style="transition-delay: 0.6s;">
                             <img src="https://via.placeholder.com/190/2ECC71/F0F0F0?text=Participante+7"
-                                alt="Participante 7">
+                                alt="Participante 7 - Marketing Digital">
                             <h3>Participante 7</h3>
                             <p>Marketing Digital / Célula de Criação</p>
                         </div>
                         <div class="team-member green-border reveal reveal-scale" style="transition-delay: 0.7s;">
                             <img src="https://via.placeholder.com/190/2ECC71/F0F0F0?text=Participante+8"
-                                alt="Participante 8">
+                                alt="Participante 8 - Marketing Digital">
                             <h3>Participante 8</h3>
                             <p>Marketing Digital / Célula de Criação</p>
                         </div>
                         <div class="team-member red-border reveal reveal-scale" style="transition-delay: 0.8s;">
                             <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+9"
-                                alt="Participante 9">
+                                alt="Participante 9 - Líder de Direção">
                             <h3>Participante 9</h3>
                             <p>Líder de Direção / Célula de Direção</p>
                         </div>
                         <div class="team-member red-border reveal reveal-scale" style="transition-delay: 0.9s;">
                             <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+10"
-                                alt="Participante 10">
+                                alt="Participante 10 - Líder de Direção">
                             <h3>Participante 10</h3>
                             <p>Líder de Direção / Célula de Direção</p>
                         </div>
                         <div class="team-member red-border reveal reveal-scale" style="transition-delay: 1.0s;">
                             <img src="https://via.placeholder.com/190/E74C3C/F0F0F0?text=Participante+11"
-                                alt="Participante 11">
+                                alt="Participante 11 - Líder de Direção">
                             <h3>Participante 11</h3>
                             <p>Líder de Direção / Célula de Direção</p>
                         </div>
                     </div>
-                    <button class="scroll-button right" id="scroll-right-btn">&gt;</button>
+                    <button class="scroll-button right" id="scroll-right-btn">></button>
                 </div>
             </div>
         </section>
@@ -1858,12 +2326,69 @@
         <section id="projetos" class="reveal reveal-up">
             <div class="container">
                 <h2>Nossos Projetos</h2>
-                <div class="section-content">
+                <div class="project-card-grid">
                     <div class="project-card reveal reveal-scale">
+                        <div class="project-image-placeholder">Imagem do Projeto</div>
                         <h3>Primeiro Projeto: O site da Aura</h3>
                         <p>O site da Aura não é um "projeto". É a nossa declaração de guerra. É a primeira página do
                             nosso grupo e deve demonstrar nossa cultura e de fato impressionar todos. </p>
                         <p class="delivery-date">Entrega: 28/06 - (Primeira Reunião) </p>
+                        <a href="#" class="btn" style="margin-top: calc(var(--spacing-unit) * 2);">Ver Detalhes</a>
+                    </div>
+                    <div class="project-card reveal reveal-scale" style="transition-delay: 0.1s;">
+                        <div class="project-image-placeholder">Mockup Plataforma Educacional</div>
+                        <h3>Plataforma EduTech X</h3>
+                        <p>Desenvolvemos uma plataforma educacional interativa, com foco em gamificação e personalização do aprendizado, utilizando as mais recentes tecnologias web.</p>
+                        <p class="delivery-date">Tecnologias: React, Node.js, Firebase</p>
+                        <a href="#" class="btn" style="margin-top: calc(var(--spacing-unit) * 2);">Ver Detalhes</a>
+                    </div>
+                    <div class="project-card reveal reveal-scale" style="transition-delay: 0.2s;">
+                        <div class="project-image-placeholder">App de Saúde Mental</div>
+                        <h3>App Flow - Bem-Estar</h3>
+                        <p>Um aplicativo mobile para acompanhamento de saúde mental, com exercícios de meditação guiada e ferramentas de diário, proporcionando uma experiência calma e intuitiva.</p>
+                        <p class="delivery-date">Tecnologias: React Native, GraphQL, AWS</p>
+                        <a href="#" class="btn" style="margin-top: calc(var(--spacing-unit) * 2);">Ver Detalhes</a>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: calc(var(--spacing-unit) * 5);">
+                    <a href="#" class="btn">Ver Portfólio Completo</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" class="reveal reveal-up">
+            <div class="container">
+                <h2>O Que Nossos Parceiros Dizem</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card reveal reveal-scale">
+                        <p>"A AURA transformou nossa visão em realidade com um nível de paixão e excelência que nunca vi antes. Eles não apenas entregam um produto, entregam uma experiência com alma."</p>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/70/6A5ACD/FFFFFF?text=JP" alt="João Paulo">
+                            <div class="info">
+                                <h4>João Paulo Silva</h4>
+                                <span>CEO, Inova Soluções</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal reveal-scale" style="transition-delay: 0.1s;">
+                        <p>"Trabalhar com a AURA é ter a certeza de que cada detalhe será tratado com maestria. A combinação de tecnologia avançada e design intuitivo é impecável."</p>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/70/4682B4/FFFFFF?text=MR" alt="Maria Ribeiro">
+                            <div class="info">
+                                <h4>Maria Ribeiro</h4>
+                                <span>Diretora de Marketing, Alpha Corp</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal reveal-scale" style="transition-delay: 0.2s;">
+                        <p>"A capacidade da AURA de compreender e materializar nossas necessidades, adicionando um toque de criatividade e inovação, é algo raro no mercado."</p>
+                        <div class="testimonial-author">
+                            <img src="https://via.placeholder.com/70/DAA520/FFFFFF?text=AN" alt="Ana Nogueira">
+                            <div class="info">
+                                <h4>Ana Nogueira</h4>
+                                <span>Fundadora, Startup Conecta</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1871,73 +2396,29 @@
 
         <section id="contato" class="reveal reveal-up">
             <div class="container">
-                <h2>Contato</h2>
-                <div class="contact-info reveal reveal-scale">
-                    <h3>Comunicação: </h3>
-                    <p>Para nos contatar, envie uma mensagem ou encontre-nos nas redes sociais:</p>
-                    <p>Email: <a href="mailto:contato@aura.com">contato@aura.com</a></p>
-                    <p>Telefone: <a href="tel:+5511999999999">(11) 99999-9999</a></p>
-                    <p>Instagram: <a href="https://instagram.com/aura_oficial" target="_blank">@aura_oficial</a></p>
-                </div>
-                <form class="contact-form reveal reveal-scale" style="transition-delay: 0.2s;">
-                    <h3>Envie-nos uma Mensagem</h3>
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name" required placeholder="Seu nome completo">
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com">
-
-                    <label for="subject">Assunto:</label>
-                    <input type="text" id="subject" name="subject" required
-                        placeholder="Ex: Proposta de Parceria, Dúvida Geral, Suporte">
-
-                    <label for="service-type">Tipo de Serviço Desejado:</label>
-                    <select id="service-type" name="service-type" required>
-                        <option value="">Selecione uma opção</option>
-                        <option value="desenvolvimento_software">Desenvolvimento de Software</option>
-                        <option value="design_ux_ui">Design de UX/UI</option>
-                        <option value="marketing_digital">Marketing Digital</option>
-                        <option value="consultoria">Consultoria</option>
-                        <option value="outros">Outros</option>
-                    </select>
-
-                    <label for="budget">Orçamento Estimado:</label>
-                    <select id="budget" name="budget" required>
-                        <option value="">Selecione uma faixa</option>
-                        <option value="<5k">Abaixo de R$ 5.000</option>
-                        <option value="5k-10k">R$ 5.000 - R$ 10.000</option>
-                        <option value="10k-25k">R$ 10.000 - R$ 25.000</option>
-                        <option value="25k+">Acima de R$ 25.000</option>
-                    </select>
-
-                    <label for="how-heard">Como nos Conheceu?</label>
-                    <select id="how-heard" name="how-heard">
-                        <option value="">Selecione uma opção</option>
-                        <option value="redes_sociais">Redes Sociais</option>
-                        <option value="indicacao">Indicação</option>
-                        <option value="pesquisa_google">Pesquisa no Google</option>
-                        <option value="evento">Evento/Feira</option>
-                        <option value="outros">Outros</option>
-                    </select>
-
-                    <label for="message">Mensagem:</label>
-                    <textarea id="message" name="message" required placeholder="Digite sua mensagem aqui..."></textarea>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="terms" name="terms" required>
-                        <label for="terms">Eu concordo com os <a href="#" target="_blank">Termos de Serviço</a> e <a
-                                href="#" target="_blank">Política de Privacidade</a>.</label>
+                <h2>Fale Conosco</h2>
+                <div class="contact-info">
+                    <h3>Estamos Prontos para Ouvir Sua Ideia</h3>
+                    <p>Seja para um novo projeto, parceria ou apenas para bater um papo, entre em contato. Queremos transformar sua visão em realidade.</p>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> E-mail: <a href="mailto:contato@aura.com">contato@aura.com</a></li>
+                        <li><i class="fas fa-phone-alt"></i> Telefone: <a href="tel:+5511999999999">+55 11 99999-9999</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Endereço: Rua da Inovação, 123 - Itapetininga, SP</li>
+                    </ul>
+                    <div style="margin-top: calc(var(--spacing-unit) * 3);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14695.787611634586!2d-48.06739958744122!3d-23.585501863577747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf5e2c7a0d4c17%3A0x67a14e9f9a4e0a7e!2sItapetininga%2C%20State%20of%20S%C3%A3o%20Paulo!5e0!3m2!1sen!2sbr!4v1719349887754!5m2!1sen!2sbr" width="100%" height="300" style="border:0; border-radius:var(--border-radius-base);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
+                </div>
 
-                    <button type="submit">Enviar Mensagem</button>
-                </form>
+
             </div>
         </section>
+
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 AURA. Todos os direitos reservados.</p>
+            <p>© 2025 AURA. Todos os direitos reservados.</p>
             <p>"Quem estará nas trincheiras ao teu lado?<br>E isso importa?<br>-Mais do que a própria guerra" </p>
             <p>(Ernest Hemingway) </p>
         </div>
@@ -1950,7 +2431,9 @@
             const teamGrid = document.getElementById('team-grid-scroll');
             const scrollLeftBtn = document.getElementById('scroll-left-btn');
             const scrollRightBtn = document.getElementById('scroll-right-btn');
+            const scrollProgressBar = document.getElementById('scroll-progress-bar');
 
+            // --- Menu Hamburguer ---
             hamburger.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
@@ -1966,7 +2449,7 @@
                 });
             });
 
-            // Lógica de scroll horizontal para a seção de participantes
+            // --- Scroll Horizontal da Seção de Participantes ---
             let scrollAmount = 0;
             if (teamGrid.firstElementChild) {
                 const firstCard = teamGrid.firstElementChild;
@@ -2015,25 +2498,33 @@
             setTimeout(updateScrollButtons, 100);
 
 
-            // Intersection Observer para animação ao rolar
+            // --- Intersection Observer para animação ao rolar ---
             const revealElements = document.querySelectorAll('.reveal');
             const observerOptions = {
-                root: null, // Observa a viewport
+                root: null, // Observa la ventana gráfica
                 rootMargin: '0px',
-                threshold: 0.15 // 15% do elemento visível
+                threshold: 0.15 // 15% del elemento visible
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        observer.unobserve(entry.target); // Para animar apenas uma vez
+                        observer.unobserve(entry.target); // Para animar solo una vez
                     }
                 });
             }, observerOptions);
 
             revealElements.forEach(el => {
                 observer.observe(el);
+            });
+
+            // --- Barra de Progresso de Desplazamiento ---
+            window.addEventListener('scroll', () => {
+                const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / scrollableHeight) * 100;
+                scrollProgressBar.style.width = progress + '%';
             });
         });
     </script>
