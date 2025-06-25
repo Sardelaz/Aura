@@ -90,7 +90,7 @@
         /* Header & Navegação */
         header {
             background-color: var(--color-dark-secondary); /* Fundo sólido, sem semi-transparência */
-            padding: var(--spacing-unit) * 1 0;
+            padding: calc(var(--spacing-unit) * 1) 0;
             box-shadow: var(--shadow-soft-dark);
             position: sticky;
             top: 0;
@@ -149,8 +149,8 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.4rem;
-            padding: var(--spacing-unit) * 1 var(--spacing-unit) * 2;
-            border-radius: var(--border-radius-base) * 0.7;
+            padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+            border-radius: calc(var(--border-radius-base) * 0.7);
             transition: all var(--transition-speed-fast) ease;
             position: relative;
             overflow: hidden;
@@ -163,7 +163,7 @@
 
         nav ul li a:hover {
             color: var(--color-accent-pink);
-            background-color: rgba(var(--color-accent-purple), 0.4);
+            background-color: rgba(138, 43, 226, 0.4); /* Usando rgba para poder ajustar opacidade */
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
@@ -172,7 +172,7 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: var(--spacing-unit) * 0.8;
+            padding: calc(var(--spacing-unit) * 0.8);
             transition: transform var(--transition-speed-fast) ease;
         }
 
@@ -225,8 +225,8 @@
 
         .hero h2 {
             font-family: var(--font-heading);
-            font-size: 6rem;
-            margin-bottom: var(--spacing-unit) * 3;
+            font-size: clamp(3.5rem, 5vw + 1rem, 6rem); /* Ajuste com clamp */
+            margin-bottom: calc(var(--spacing-unit) * 3);
             color: var(--color-accent-purple);
             text-shadow: 0 8px 25px rgba(0,0,0,0.6);
             line-height: 1.1;
@@ -246,13 +246,13 @@
             transform: translateX(-50%);
             width: 90%;
             height: 12px;
-            background: radial-gradient(ellipse at center, rgba(var(--color-accent-pink), 0.4) 0%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(224, 64, 251, 0.4) 0%, transparent 70%); /* Usando rgba para poder ajustar opacidade */
             filter: blur(15px);
         }
 
 
         .hero p {
-            font-size: 2.3rem;
+            font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.3rem); /* Ajuste com clamp */
             max-width: 1100px;
             margin-bottom: calc(var(--spacing-unit) * 5);
             color: var(--color-text-light);
@@ -266,7 +266,7 @@
         .btn {
             background-image: linear-gradient(to right, var(--color-accent-pink) 0%, var(--color-accent-purple) 100%);
             color: white;
-            padding: var(--spacing-unit) * 1.5 var(--spacing-unit) * 5;
+            padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 5);
             text-decoration: none;
             border-radius: var(--border-radius-base);
             font-weight: 700;
@@ -345,12 +345,12 @@
 
         section h2 {
             font-family: var(--font-heading);
-            font-size: 5rem;
+            font-size: clamp(2.5rem, 4vw + 0.8rem, 5rem); /* Ajuste com clamp */
             text-align: center;
             margin-bottom: calc(var(--spacing-unit) * 6);
             color: var(--color-accent-purple);
             position: relative;
-            padding-bottom: var(--spacing-unit) * 1.5;
+            padding-bottom: calc(var(--spacing-unit) * 1.5);
             font-weight: 900;
             letter-spacing: 2px;
             background: linear-gradient(to right, var(--color-accent-purple), var(--color-accent-pink));
@@ -365,7 +365,7 @@
             width: 180px;
             height: 8px;
             background: linear-gradient(to right, var(--color-accent-pink), var(--color-accent-purple));
-            margin: var(--spacing-unit) * 1.2 auto 0;
+            margin: calc(var(--spacing-unit) * 1.2) auto 0;
             border-radius: 4px;
         }
 
@@ -399,14 +399,14 @@
             font-family: var(--font-heading);
             font-size: 2.8rem;
             color: var(--color-accent-pink);
-            margin-bottom: var(--spacing-unit) * 2;
+            margin-bottom: calc(var(--spacing-unit) * 2);
             font-weight: 800;
             text-align: center;
             letter-spacing: 1.2px;
         }
 
         #quem-somos .text-content p {
-            margin-bottom: var(--spacing-unit) * 2.2;
+            margin-bottom: calc(var(--spacing-unit) * 2.2);
             font-size: 1.4rem;
             color: var(--color-text-light); /* Texto claro */
             font-weight: 300;
@@ -415,11 +415,11 @@
         #quem-somos .culture-points {
             list-style: none;
             padding-left: 0;
-            margin-top: var(--spacing-unit) * 2.5;
+            margin-top: calc(var(--spacing-unit) * 2.5);
         }
 
         #quem-somos .culture-points li {
-            margin-bottom: var(--spacing-unit) * 1.5;
+            margin-bottom: calc(var(--spacing-unit) * 1.5);
             position: relative;
             padding-left: calc(var(--spacing-unit) * 3);
             font-size: 1.35rem;
@@ -440,9 +440,7 @@
         /* Participantes Section */
         #participantes .team-scroll-wrapper {
             position: relative;
-            /* Aumentar padding vertical para dar espaço ao hover/sombra */
             padding: calc(var(--spacing-unit) * 4) calc(var(--spacing-unit) * 5); /* Ajustado o vertical */
-            /* Margem negativa para contra-balançar o padding e manter o wrapper na largura total do container */
             margin: calc(var(--spacing-unit) * -4) calc(var(--spacing-unit) * -5); /* Ajustado o vertical */
             height: 500px; /* Aumenta a altura do wrapper para dar espaço ao hover */
             display: flex; /* Para centralizar os itens verticalmente */
@@ -466,7 +464,7 @@
             box-shadow: var(--shadow-soft-dark);
             width: 60px;
             height: 60px;
-            display: flex;
+            display: flex; /* Mantém visível por padrão (desktop) */
             align-items: center;
             justify-content: center;
             user-select: none; /* Evita seleção de texto */
@@ -474,7 +472,7 @@
         #participantes .scroll-button:hover {
             background-color: var(--color-accent-purple);
             color: white;
-            box-shadow: 0 0 15px rgba(var(--color-accent-purple), 0.5), var(--shadow-soft-dark);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5), var(--shadow-soft-dark);
             transform: translateY(-50%) scale(1.1);
         }
         #participantes .scroll-button:active {
@@ -503,13 +501,13 @@
             justify-content: start; /* Alinha o início do grid à esquerda */
             overflow-x: scroll; /* Adiciona barra de scroll horizontal */
             scroll-snap-type: x mandatory; /* Para rolagem suave e "snap" nos itens */
-            padding-bottom: var(--spacing-unit) * 0.5; /* Espaço para não cortar a sombra dos cards */
+            padding-bottom: calc(var(--spacing-unit) * 0.5); /* Espaço para não cortar a sombra dos cards */
             -webkit-overflow-scrolling: touch; /* Melhora o scroll em iOS */
             scroll-behavior: smooth; /* *** PROPRIEDADE PARA SCROLL SUAVE *** */
 
             /* Ocultar barra de rolagem visualmente */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
         }
         /* Ocultar barra de rolagem no WebKit (Chrome, Safari, etc.) */
         #participantes .team-grid::-webkit-scrollbar {
@@ -534,7 +532,7 @@
             transform: translateY(-10px); /* Levantamento mais sutil */
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8); /* Sombra mais suave no hover */
             background-color: #252525; /* Escurecimento no hover */
-            border-color: var(--color-accent-purple); /* Borda roxa no hover */
+            border-color: var(--color-accent-pink); /* Borda roxa no hover */
         }
 
         #participantes .team-member img {
@@ -542,7 +540,7 @@
             height: 190px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: var(--spacing-unit) * 2;
+            margin-bottom: calc(var(--spacing-unit) * 2);
             border: 6px solid var(--color-accent-purple); /* Borda sólida roxa */
             box-shadow: 0 0 0 4px var(--color-dark-secondary), /* Borda interna do card */
                                 0 0 0 8px var(--color-accent-pink); /* Borda rosa mais externa */
@@ -606,7 +604,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(var(--color-accent-pink), 0.1), transparent 50%, rgba(var(--color-accent-purple), 0.1));
+            background: linear-gradient(45deg, rgba(224, 64, 251, 0.1), transparent 50%, rgba(138, 43, 226, 0.1)); /* Usando rgba para poder ajustar opacidade */
             opacity: 0;
             transition: opacity var(--transition-speed-medium) ease;
         }
@@ -619,13 +617,13 @@
             font-family: var(--font-heading);
             font-size: 3rem;
             color: var(--color-accent-purple);
-            margin-bottom: var(--spacing-unit) * 2.2;
+            margin-bottom: calc(var(--spacing-unit) * 2.2);
             font-weight: 800;
             letter-spacing: 1.5px;
         }
 
         #projetos .project-card p {
-            margin-bottom: var(--spacing-unit) * 2.5;
+            margin-bottom: calc(var(--spacing-unit) * 2.5);
             font-size: 1.45rem;
             color: var(--color-text-light);
             font-weight: 300;
@@ -636,8 +634,8 @@
             color: var(--color-accent-pink);
             font-size: 1.6rem;
             background-color: rgba(224, 64, 251, 0.15);
-            padding: var(--spacing-unit) * 0.9 var(--spacing-unit) * 1.8;
-            border-radius: var(--border-radius-base) * 0.8;
+            padding: calc(var(--spacing-unit) * 0.9) calc(var(--spacing-unit) * 1.8);
+            border-radius: calc(var(--border-radius-base) * 0.8);
             display: inline-block;
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             letter-spacing: 0.8px;
@@ -658,15 +656,15 @@
             font-family: var(--font-heading);
             font-size: 2.5rem;
             color: var(--color-accent-purple);
-            margin-top: var(--spacing-unit) * 2;
-            margin-bottom: var(--spacing-unit) * 2.5;
+            margin-top: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 2.5);
             font-weight: 700;
             letter-spacing: 1px;
         }
 
         #contato .contact-info p {
             font-size: 1.4rem;
-            margin-bottom: var(--spacing-unit) * 1.8;
+            margin-bottom: calc(var(--spacing-unit) * 1.8);
             color: var(--color-text-light);
             font-weight: 300;
         }
@@ -674,18 +672,18 @@
         #contato .contact-info ul {
             list-style: none;
             padding-left: 0;
-            margin-bottom: var(--spacing-unit) * 3.5;
+            margin-bottom: calc(var(--spacing-unit) * 3.5);
             display: inline-block;
             text-align: left;
             background-color: rgba(0,0,0,0.3);
-            padding: var(--spacing-unit) * 1.8 var(--spacing-unit) * 3;
-            border-radius: var(--border-radius-base) * 0.8;
+            padding: calc(var(--spacing-unit) * 1.8) calc(var(--spacing-unit) * 3);
+            border-radius: calc(var(--border-radius-base) * 0.8);
             border: 1px dashed var(--color-dark-quaternary);
             box-shadow: inset 0 0 12px rgba(0,0,0,0.6);
         }
 
         #contato .contact-info li {
-            margin-bottom: var(--spacing-unit) * 1.2;
+            margin-bottom: calc(var(--spacing-unit) * 1.2);
             font-size: 1.35rem;
             color: var(--color-text-light);
             position: relative;
@@ -710,9 +708,9 @@
             font-weight: 600;
             font-size: 1.3rem;
             display: inline-block;
-            margin: var(--spacing-unit) * 0.4;
-            padding: var(--spacing-unit) * 0.6 var(--spacing-unit) * 1.2;
-            border-radius: var(--border-radius-base) * 0.6;
+            margin: calc(var(--spacing-unit) * 0.4);
+            padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 1.2);
+            border-radius: calc(var(--border-radius-base) * 0.6);
             background-color: rgba(255, 0, 255, 0.15);
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
@@ -746,7 +744,7 @@
 
         .contact-form label {
             display: block;
-            margin-bottom: var(--spacing-unit) * 1.2;
+            margin-bottom: calc(var(--spacing-unit) * 1.2);
             font-weight: 600;
             font-size: 1.3rem;
             color: var(--color-text-light);
@@ -758,10 +756,10 @@
         .contact-form textarea,
         .contact-form select { /* Estilizando todos os inputs de texto, email, textarea e select */
             width: 100%;
-            padding: var(--spacing-unit) * 1.5;
-            margin-bottom: var(--spacing-unit) * 2.8;
+            padding: calc(var(--spacing-unit) * 1.5);
+            margin-bottom: calc(var(--spacing-unit) * 2.8);
             border: 1px solid var(--color-dark-quaternary); /* Borda cinza escuro 3 */
-            border-radius: var(--border-radius-base) * 0.7;
+            border-radius: calc(var(--border-radius-base) * 0.7);
             background-color: var(--color-dark-tertiary); /* Fundo cinza escuro 2 para inputs */
             color: var(--color-text-light);
             font-size: 1.25rem;
@@ -774,11 +772,11 @@
             -moz-appearance: none; /* Remove a seta padrão do Firefox */
             appearance: none; /* Remove a seta padrão */
             background-image: linear-gradient(45deg, transparent 50%, var(--color-text-muted) 50%),
-                              linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
+                                linear-gradient(135deg, var(--color-text-muted) 50%, transparent 50%);
             background-position: calc(100% - 20px) center, calc(100% - 15px) center;
             background-size: 8px 8px, 8px 8px; /* Ajuste o tamanho da seta customizada */
             background-repeat: no-repeat;
-            padding-right: var(--spacing-unit) * 3; /* Adiciona padding para a seta customizada */
+            padding-right: calc(var(--spacing-unit) * 3); /* Adiciona padding para a seta customizada */
             cursor: pointer;
         }
 
@@ -807,7 +805,7 @@
         .contact-form .checkbox-group {
             display: flex;
             align-items: center;
-            margin-bottom: var(--spacing-unit) * 2.8;
+            margin-bottom: calc(var(--spacing-unit) * 2.8);
             font-size: 1.15rem;
             color: var(--color-text-muted);
         }
@@ -871,7 +869,7 @@
         .contact-form button {
             display: block;
             width: 100%;
-            padding: var(--spacing-unit) * 1.8;
+            padding: calc(var(--spacing-unit) * 1.8);
             background-image: linear-gradient(to right, var(--color-accent-pink) 0%, var(--color-accent-purple) 100%);
             color: white;
             border: none;
@@ -939,7 +937,7 @@
         }
 
         footer p {
-            margin-bottom: var(--spacing-unit) * 1.2;
+            margin-bottom: calc(var(--spacing-unit) * 1.2);
             font-weight: 300;
         }
 
@@ -952,10 +950,10 @@
 
         /* Responsividade */
         @media (max-width: 1200px) {
-            .container { padding: 0 var(--spacing-unit) * 2; }
-            .hero h2 { font-size: 5rem; }
-            .hero p { font-size: 2rem; }
-            section h2 { font-size: 4.2rem; }
+            .container { padding: 0 calc(var(--spacing-unit) * 2); }
+            /* .hero h2 { font-size: 5rem; } */ /* Substituído por clamp() */
+            /* .hero p { font-size: 2rem; } */ /* Substituído por clamp() */
+            /* section h2 { font-size: 4.2rem; } */ /* Substituído por clamp() */
             #quem-somos .text-content { min-width: unset; max-width: 100%; } /* Ajuste para não ter largura mínima rígida */
 
             #participantes .team-scroll-wrapper {
@@ -963,31 +961,30 @@
                 margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -1);
                 height: auto;
             }
+            /* Em telas <= 1200px, os botões permanecem visíveis, apenas com padding ajustado */
             #participantes .scroll-button.left { left: 0; }
             #participantes .scroll-button.right { right: 0; }
         }
 
         @media (max-width: 992px) {
-            .container { padding: 0 var(--spacing-unit) * 1.5; }
+            .container { padding: 0 calc(var(--spacing-unit) * 1.5); }
 
             .logo h1 { font-size: 2.8rem; letter-spacing: 4px; }
             .logo img { height: 65px; }
 
             nav ul li { margin-left: calc(var(--spacing-unit) * 2.5); }
-            nav ul li a { font-size: 1.3rem; padding: var(--spacing-unit) * 0.9 var(--spacing-unit) * 1.5; }
+            nav ul li a { font-size: 1.3rem; padding: calc(var(--spacing-unit) * 0.9) calc(var(--spacing-unit) * 1.5); }
 
-            .hero { padding: calc(var(--spacing-unit) * 12) var(--spacing-unit) * 1.5; min-height: 80vh; }
-            .hero h2 { font-size: 4rem; }
-            .hero p { font-size: 1.7rem; }
-            .btn { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 3; font-size: 1.4rem; }
+            .hero { padding: calc(var(--spacing-unit) * 12) calc(var(--spacing-unit) * 1.5); min-height: 80vh; }
+            .btn { padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 3); font-size: 1.4rem; }
 
             section { padding: calc(var(--spacing-unit) * 7) 0; }
-            section h2 { font-size: 3.5rem; margin-bottom: calc(var(--spacing-unit) * 4.5); }
             section h2::after { width: 150px; height: 7px; }
 
             #quem-somos .text-content { padding: calc(var(--spacing-unit) * 3); }
             #quem-somos .text-content h3 { font-size: 2.4rem; }
-            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1.25rem; }
+            #quem-somos .text-content p { font-size: 1.25rem; margin-bottom: calc(var(--spacing-unit) * 1.5); } /* Ajuste de margin-bottom */
+            #quem-somos .culture-points li { font-size: 1.25rem; margin-bottom: calc(var(--spacing-unit) * 1); } /* Ajuste de margin-bottom */
 
             #participantes .team-grid { grid-auto-columns: minmax(280px, 1fr); gap: calc(var(--spacing-unit) * 3.5); }
             #participantes .team-member img { width: 180px; height: 180px; }
@@ -1034,14 +1031,14 @@
                 text-align: center;
                 background-color: var(--color-dark-secondary);
                 border-radius: var(--border-radius-base);
-                padding: var(--spacing-unit) * 1.5 0;
+                padding: calc(var(--spacing-unit) * 1.5) 0;
                 box-shadow: var(--shadow-soft-dark);
             }
 
             nav ul.active { display: flex; }
 
-            nav ul li { margin: var(--spacing-unit) * 0.8 0; }
-            nav ul li a { padding: var(--spacing-unit) * 0.9; font-size: 1.25rem; color: var(--color-text-light); }
+            nav ul li { margin: calc(var(--spacing-unit) * 0.8) 0; }
+            nav ul li a { padding: calc(var(--spacing-unit) * 0.9); font-size: 1.25rem; color: var(--color-text-light); }
             nav ul li a::after { display: none; }
 
 
@@ -1059,28 +1056,28 @@
                 min-height: 70vh;
             }
 
-            .hero h2 { font-size: 3.5rem; margin-bottom: var(--spacing-unit) * 2; }
-            .hero p { font-size: 1.5rem; margin-bottom: var(--spacing-unit) * 3; }
-            .btn { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 3; font-size: 1.35rem; }
+            .btn { padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 3); font-size: 1.35rem; }
 
             section { padding: calc(var(--spacing-unit) * 6) 0; }
-            section h2 { font-size: 3.2rem; margin-bottom: calc(var(--spacing-unit) * 3.5); }
             section h2::after { width: 120px; height: 6px; }
 
-            #quem-somos .section-content { flex-direction: column; gap: var(--spacing-unit) * 3; }
+            #quem-somos .section-content { flex-direction: column; gap: calc(var(--spacing-unit) * 3); }
             #quem-somos .text-content { padding: calc(var(--spacing-unit) * 2.5); background-color: var(--color-dark-secondary); }
             #quem-somos .text-content h3 { font-size: 2.2rem; }
-            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1.15rem; color: var(--color-text-light); }
+            #quem-somos .text-content p { font-size: 1.15rem; color: var(--color-text-light); margin-bottom: calc(var(--spacing-unit) * 1.2); } /* Ajuste aqui */
+            #quem-somos .culture-points { margin-top: calc(var(--spacing-unit) * 1.8); } /* Ajuste aqui */
+            #quem-somos .culture-points li { font-size: 1.15rem; color: var(--color-text-light); margin-bottom: calc(var(--spacing-unit) * 0.8); } /* Ajuste aqui */
             #quem-somos .culture-points li::before { font-size: 1.8rem; top: -3px; }
 
-            #participantes .team-scroll-wrapper { /* Ajusta para mobile, mantém as setas mais próximas */
-                padding: calc(var(--spacing-unit) * 2.5) var(--spacing-unit); /* Aumenta padding vertical para o hover */
-                margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -1); /* Ajusta margem para compensar padding */
+            #participantes .team-scroll-wrapper { /* Ajusta para mobile, remove as setas */
+                padding: calc(var(--spacing-unit) * 2.5) calc(var(--spacing-unit) * 2); /* Aumenta padding horizontal para os cards ficarem mais centralizados */
+                margin: calc(var(--spacing-unit) * -2.5) calc(var(--spacing-unit) * -2); /* Ajusta margem para compensar padding */
             }
-            #participantes .scroll-button.left { left: var(--spacing-unit) * 0.5; } /* Ajusta a distância das setas no mobile */
-            #participantes .scroll-button.right { right: var(--spacing-unit) * 0.5; } /* Ajusta a distância das setas no mobile */
+            #participantes .scroll-button {
+                display: none; /* Oculta os botões em telas menores ou iguais a 768px */
+            }
             
-            #participantes .team-grid { grid-auto-columns: minmax(250px, 1fr); gap: calc(var(--spacing-unit) * 2.5); }
+            #participantes .team-grid { grid-auto-columns: minmax(250px, 1fr); gap: calc(var(--spacing-unit) * 2.5); } /* min-width ajustado */
             #participantes .team-member { padding: calc(var(--spacing-unit) * 2); background-color: var(--color-dark-secondary); }
             #participantes .team-member img { width: 160px; height: 160px; border-width: 5px; box-shadow: 0 0 0 5px rgba(255,255,255,0.05), 0 0 0 12px var(--color-accent-pink); }
             #participantes .team-member h3 { font-size: 1.6rem; }
@@ -1089,23 +1086,27 @@
             #projetos .project-card { padding: calc(var(--spacing-unit) * 2.5); background-color: var(--color-dark-secondary); }
             #projetos .project-card h3 { font-size: 2.5rem; }
             #projetos .project-card p { font-size: 1.2rem; color: var(--color-text-light); }
-            #projetos .project-card .delivery-date { font-size: 1.3rem; padding: var(--spacing-unit) * 0.7 var(--spacing-unit) * 1.5; }
+            #projetos .project-card .delivery-date { font-size: 1.3rem; padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.5); }
 
-            #contato .contact-info { padding: calc(var(--spacing-unit) * 2.5); margin-bottom: calc(var(--spacing-unit) * 3.5); background-color: var(--color-dark-secondary); }
+            #contato .contact-info { padding: calc(var(--spacing-unit) * 2.5); margin-bottom: calc(var(--spacing-unit) * 3); background-color: var(--color-dark-secondary); } /* Ajuste aqui */
             #contato .contact-info p, #contato .contact-info li, #contato .contact-info a { font-size: 1.05rem; color: var(--color-text-light); }
             #contato .contact-info h3 { font-size: 2rem; }
-            #contato .contact-info ul { padding: var(--spacing-unit) * 1.2 var(--spacing-unit) * 2; background-color: rgba(0,0,0,0.3); border: 1px dashed var(--color-dark-quaternary); }
+            #contato .contact-info ul { padding: calc(var(--spacing-unit) * 1.2) calc(var(--spacing-unit) * 2); background-color: rgba(0,0,0,0.3); border: 1px dashed var(--color-dark-quaternary); }
             #contato .contact-info li::before { font-size: 1.6rem; }
-            #contato .contact-info a { padding: var(--spacing-unit) * 0.5 var(--spacing-unit) * 1; background-color: rgba(255, 0, 255, 0.15); }
+            #contato .contact-info a { padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 1); background-color: rgba(255, 0, 255, 0.15); }
 
             .contact-form { padding: calc(var(--spacing-unit) * 3); background-color: var(--color-dark-secondary); }
             .contact-form h3 { font-size: 2.5rem; margin-bottom: calc(var(--spacing-unit) * 2.5); }
             .contact-form label, .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form button, .contact-form select { font-size: 1.1rem; color: var(--color-text-light); }
-            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { background-color: var(--color-dark-tertiary); border: 1px solid var(--color-dark-quaternary); }
+            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { 
+                background-color: var(--color-dark-tertiary); 
+                border: 1px solid var(--color-dark-quaternary); 
+                margin-bottom: calc(var(--spacing-unit) * 2); /* Ajuste aqui */
+            }
             .contact-form textarea { min-height: 180px; }
-            .contact-form button { padding: var(--spacing-unit) * 1.2; font-size: 1.25rem; }
-            .contact-form .checkbox-group { font-size: 1rem; }
-            .contact-form .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; margin-right: var(--spacing-unit) * 0.8;}
+            .contact-form button { padding: calc(var(--spacing-unit) * 1.2); font-size: 1.25rem; }
+            .contact-form .checkbox-group { font-size: 1rem; margin-bottom: calc(var(--spacing-unit) * 2); } /* Ajuste aqui */
+            .contact-form .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; margin-right: calc(var(--spacing-unit) * 0.8);}
             .contact-form .checkbox-group input[type="checkbox"]:checked::after { font-size: 14px;}
         }
 
@@ -1113,17 +1114,16 @@
             .logo h1 { font-size: 1.9rem; letter-spacing: 1px; }
             .logo img { height: 45px; }
 
-            .hero h2 { font-size: 2.8rem; margin-bottom: var(--spacing-unit) * 1.5; }
-            .hero p { font-size: 1.25rem; margin-bottom: var(--spacing-unit) * 2.5; }
-            .btn { padding: var(--spacing-unit) * 1 var(--spacing-unit) * 2; font-size: 1.15rem; }
+            .btn { padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2); font-size: 1.15rem; }
 
             section { padding: calc(var(--spacing-unit) * 4) 0; }
-            section h2 { font-size: 2.5rem; margin-bottom: var(--spacing-unit) * 2.5; }
             section h2::after { width: 90px; height: 5px; }
 
-            #quem-somos .text-content { padding: var(--spacing-unit) * 1.8; }
+            #quem-somos .text-content { padding: calc(var(--spacing-unit) * 1.8); }
             #quem-somos .text-content h3 { font-size: 1.8rem; }
-            #quem-somos .text-content p, #quem-somos .culture-points li { font-size: 1rem; }
+            #quem-somos .text-content p { font-size: 1rem; margin-bottom: calc(var(--spacing-unit) * 1); } /* Ajuste aqui */
+            #quem-somos .culture-points { margin-top: calc(var(--spacing-unit) * 1.5); } /* Ajuste aqui */
+            #quem-somos .culture-points li { font-size: 1rem; margin-bottom: calc(var(--spacing-unit) * 0.6); } /* Ajuste aqui */
             #quem-somos .culture-points li::before { font-size: 1.5rem; top: 0px; }
 
             #participantes .team-grid { grid-auto-columns: 1fr; } /* Em telas menores, pode ser uma coluna por vez */
@@ -1132,26 +1132,29 @@
             #participantes .team-member h3 { font-size: 1.4rem; }
             #participantes .team-member p { font-size: 0.9rem; }
 
-            #projetos .project-card { padding: var(--spacing-unit) * 2; }
+            #projetos .project-card { padding: calc(var(--spacing-unit) * 2); }
             #projetos .project-card h3 { font-size: 2.2rem; }
             #projetos .project-card p { font-size: 1.15rem; }
-            #projetos .project-card .delivery-date { font-size: 1.15rem; padding: var(--spacing-unit) * 0.6 var(--spacing-unit) * 1.2; }
+            #projetos .project-card .delivery-date { font-size: 1.15rem; padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 1.2); }
 
-            #contato .contact-info { padding: var(--spacing-unit) * 2; margin-bottom: var(--spacing-unit) * 3; }
+            #contato .contact-info { padding: calc(var(--spacing-unit) * 2); margin-bottom: calc(var(--spacing-unit) * 2.5); } /* Ajuste aqui */
             #contato .contact-info p, #contato .contact-info li, #contato .contact-info a { font-size: 1rem; }
             #contato .contact-info h3 { font-size: 1.8rem; }
-            #contato .contact-info ul { padding: var(--spacing-unit) * 1 var(--spacing-unit) * 1.5; }
+            #contato .contact-info ul { padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 1.5); }
             #contato .contact-info li::before { font-size: 1.4rem; }
-            #contato .contact-info a { padding: var(--spacing-unit) * 0.4 var(--spacing-unit) * 0.8; }
+            #contato .contact-info a { padding: calc(var(--spacing-unit) * 0.4) calc(var(--spacing-unit) * 0.8); }
 
-            .contact-form { padding: var(--spacing-unit) * 2; }
-            .contact-form h3 { font-size: 2.2rem; margin-bottom: var(--spacing-unit) * 2; }
+            .contact-form { padding: calc(var(--spacing-unit) * 2); }
+            .contact-form h3 { font-size: 2.2rem; margin-bottom: calc(var(--spacing-unit) * 2); }
             .contact-form label, .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form button, .contact-form select { font-size: 1rem; }
-            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { padding: var(--spacing-unit); margin-bottom: var(--spacing-unit) * 2; }
+            .contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea, .contact-form select { 
+                padding: var(--spacing-unit); 
+                margin-bottom: calc(var(--spacing-unit) * 1.5); /* Ajuste aqui */
+            }
             .contact-form textarea { min-height: 140px; }
-            .contact-form button { padding: var(--spacing-unit) * 1; font-size: 1.15rem; }
-            .contact-form .checkbox-group { font-size: 0.9rem; }
-            .contact-form .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; margin-right: var(--spacing-unit) * 0.7;}
+            .contact-form button { padding: calc(var(--spacing-unit) * 1); font-size: 1.15rem; }
+            .contact-form .checkbox-group { font-size: 0.9rem; margin-bottom: calc(var(--spacing-unit) * 1.5); } /* Ajuste aqui */
+            .contact-form .checkbox-group input[type="checkbox"] { width: 16px; height: 16px; margin-right: calc(var(--spacing-unit) * 0.7);}
             .contact-form .checkbox-group input[type="checkbox"]:checked::after { font-size: 12px;}
         }
     </style>
@@ -1392,16 +1395,19 @@
             }
 
             function updateScrollButtons() {
-                if (teamGrid.scrollLeft <= 5) { 
-                    scrollLeftBtn.classList.add('disabled');
-                } else {
-                    scrollLeftBtn.classList.remove('disabled');
-                }
+                // Só atualiza os botões se eles estiverem visíveis
+                if (window.getComputedStyle(scrollLeftBtn).display !== 'none') {
+                    if (teamGrid.scrollLeft <= 5) { 
+                        scrollLeftBtn.classList.add('disabled');
+                    } else {
+                        scrollLeftBtn.classList.remove('disabled');
+                    }
 
-                if (teamGrid.scrollLeft + teamGrid.clientWidth >= teamGrid.scrollWidth - 5) { 
-                    scrollRightBtn.classList.add('disabled');
-                } else {
-                    scrollRightBtn.classList.remove('disabled');
+                    if (teamGrid.scrollLeft + teamGrid.clientWidth >= teamGrid.scrollWidth - 5) { 
+                        scrollRightBtn.classList.add('disabled');
+                    } else {
+                        scrollRightBtn.classList.remove('disabled');
+                    }
                 }
             }
 
@@ -1420,6 +1426,8 @@
             });
 
             teamGrid.addEventListener('scroll', updateScrollButtons);
+            // Atualiza os botões ao carregar e ao redimensionar a janela
+            window.addEventListener('resize', updateScrollButtons);
             setTimeout(updateScrollButtons, 100); 
 
 
